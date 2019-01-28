@@ -60,7 +60,7 @@ $('#contact_form').on('submit', function(){
         $.ajax({
 		    url: 'https://mailsender.dvulgsolucoes.com.br/api/email/send',
 		    method: 'POST',
-		    data: { request:'Local', from:email, to:'devdvulg@gmail.com', subject:subject, message:content },
+		    data: { request:'Local', from:email, to:'exemple@gmail.com', subject:subject, message:content },
 		    success: function(response){
 		        let data = JSON.parse(response);
 
