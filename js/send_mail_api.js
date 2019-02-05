@@ -44,6 +44,7 @@ $('#contact_form').on('submit', function(){
         });
 
     }else{
+        $('#contact_form button').html('Enviando...');
     	let content = `
     		<h2 style="color:#002a4e">Formulário de Contato</h2>
     		<p>
@@ -65,12 +66,14 @@ $('#contact_form').on('submit', function(){
 		        let data = JSON.parse(response);
 
 		    	if( data.success ) {
+                    $('#contact_form button').html('Enviar');
 			    	iziToast.success({
 			            title: 'Mensagem enviada com sucesso! ',
 			            position: 'topRight',
 			            timeout: 2500
 			        });
 			    }else {
+                    $('#contact_form button').html('Enviar Novamente');
 			    	iziToast.danger({
 			            title: 'Ops! Ocorreu um erro ao tentar enviar sua mensagem. ',
 			            position: 'topRight',
