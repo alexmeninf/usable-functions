@@ -75,6 +75,9 @@ function get_breadcrumb() {
 	    elseif ( is_search() ) {
 	        echo "<li ".$class.">&nbsp;Resultados da pesquisa</li>";
 	    }
-	    echo str_replace('<', '</', $tag_list);
+	    if(strstr($tag_list, '<ul')) 
+	    	echo '</ul>';
+	    else
+	    	echo '</ol>';
 	}
 }
