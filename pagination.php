@@ -1,3 +1,28 @@
+<?php
+// USE IN POST TYPE LIST
+
+/*----------  PAGINATION  ----------*/
+/*
+$posts_total    = new WP_Query(array('post_type' => 'clipping', 'posts_per_page' => -1));
+$posts_count    = $posts_total->post_count;//total de posts
+$posts_per_page = 6;
+$pages_count    = ceil($posts_count / $posts_per_page);
+$current_page   = ( isset($_GET['pg']) && $_GET['pg'] > 1 && $_GET['pg'] <= $pages_count ) ? $_GET['pg'] : 1;
+*/
+
+/*----------  Loop  ----------*/
+/* 
+$sql_clipping = new WP_Query(array('post_type' => 'clipping', 'posts_per_page' => $posts_per_page, 'order' => 'DESC', 'paged' => $current_page));
+
+if( $sql_clipping->have_posts() ): while( $sql_clipping->have_posts() ): $sql_clipping->the_post(); ?>
+
+
+<?php endwhile; endif; wp_reset_query(); ?>
+*/
+
+// FUNCTION
+
+
 /*==================================
 =            PAGINATION            =
 ==================================*/
