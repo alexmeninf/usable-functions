@@ -51,6 +51,11 @@ function get_breadcrumb() {
 	    elseif ( is_tag() ) {
 	        single_tag_title();
 	    }
+	    
+	    }elseif(is_tax()) {
+		$term = get_term_by( 'slug', get_query_var('term'), get_query_var('taxonomy') );
+		echo "<li ".$class.">".$term->name."</li>";
+	    }
 
 	    elseif ( is_day() ) {
 	        echo "<li ".$class.">&nbsp;Arquivo de ".get_the_time('j \d\e F \d\e Y')."</li>";
