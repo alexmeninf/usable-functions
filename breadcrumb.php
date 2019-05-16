@@ -1,4 +1,3 @@
-<?php
 /*======================================
 =            GET BREADCRUMB            =
 ======================================*/
@@ -51,10 +50,10 @@ function get_breadcrumb() {
 	    elseif ( is_tag() ) {
 	        single_tag_title();
 	    }
-	    
-	    }elseif(is_tax()) {
-		$term = get_term_by( 'slug', get_query_var('term'), get_query_var('taxonomy') );
-		echo "<li ".$class.">".$term->name."</li>";
+
+	    elseif (is_tax()) {
+			$term = get_term_by( 'slug', get_query_var('term'), get_query_var('taxonomy') );
+			echo "<li ".$class.">".$term->name."</li>";
 	    }
 
 	    elseif ( is_day() ) {
@@ -80,9 +79,11 @@ function get_breadcrumb() {
 	    elseif ( is_search() ) {
 	        echo "<li ".$class.">&nbsp;Resultados da pesquisa</li>";
 	    }
-	    if(strstr($tag_list, '<ul')) 
+
+	    if(strstr($tag_list, '<ul')){
 	    	echo '</ul>';
-	    else
+	    } else {
 	    	echo '</ol>';
+	    }
 	}
 }
