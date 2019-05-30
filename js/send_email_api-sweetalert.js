@@ -55,7 +55,7 @@
 	    		<p>
 	    			<b>Mensagem:</b><br> ${message}
 	    		</p>
-	    		<small>Enviado pelo através do site.</small>
+	    		<small>Enviado através do site.</small>
 	    	`;
 
 	        $.ajax({
