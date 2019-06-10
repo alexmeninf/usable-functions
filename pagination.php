@@ -30,9 +30,9 @@ if( $sql_clipping->have_posts() ): while( $sql_clipping->have_posts() ): $sql_cl
  *
  * $current_page - Página atual
  * $pages_count - total de páginas de posts
-  * $maxLinks - tamanho da paginação (A esqueda e a direita) Default = 1
+  * $maxLinks - tamanho da paginação (A esqueda e a direita) Default = 2
  */
-function get_pagination($current_page, $pages_count, $maxLinks = 1) {
+function get_pagination($current_page, $pages_count, $maxLinks = 2) {
 	//Limite de link antes e depois
     if( $pages_count > 0 ) : ?>
         <!-- Pagination -->
