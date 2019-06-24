@@ -25,29 +25,26 @@ if( $sql_posts->have_posts() ): while( $sql_posts->have_posts() ): $sql_posts->t
  * $maxLinks - tamanho da paginação (A esqueda e a direita) Default = 2
  */
 function get_pagination($current_page, $pages_count, $maxLinks = 2) {
-	//Limite de link antes e depois
+    //Limite de link antes e depois
     if( $pages_count > 0 ) : ?>
-        <!-- Pagination -->
-        <div class="styled-pagination">
-            <ul class="clearfix">
+       <nav aria-label="Page navigation example">
+            <ul class="pagination">
             <?php
-            echo '<li class="prev"><a href="'.get_the_permalink(get_the_ID()).'"?pg=1" aria-label="Previous"><span>&laquo;</span></a></li>';
+            echo '<li class="page-item"><a class="page-link" href="'.get_the_permalink(get_the_ID()).'"?pg=1" aria-label="Previous"><span>&laquo;</span></a></li>';
             for($i = $current_page - $maxLinks; $i <= $current_page - 1; $i++):
                 if($i >= 1):
-                    echo '<li><a href="'.get_the_permalink(get_the_ID()).'?pg='.$i.'">'.$i.'</a></li>';
+                    echo '<li><a class="page-link" href="'.get_the_permalink(get_the_ID()).'?pg='.$i.'">'.$i.'</a></li>';
                 endif;
             endfor;
-
-            echo '<li class="active"><a href="'.get_the_permalink(get_the_ID()).'?pg='.$current_page.'"> '.$current_page.'</a></li>';
-
+            echo '<li class="page-item active"><a class="page-link" href="'.get_the_permalink(get_the_ID()).'?pg='.$current_page.'"> '.$current_page.'</a></li>';
             for($i = $current_page + 1; $i <= $current_page + $maxLinks; $i++):
                 if($i <= $pages_count):
-                    echo '<li><a href="'.get_the_permalink(get_the_ID()).'?pg='.$i.'">'.$i.'</a></li>';
+                    echo '<li class="page-item"><a class="page-link" href="'.get_the_permalink(get_the_ID()).'?pg='.$i.'">'.$i.'</a></li>';
                 endif;
             endfor;
-            echo '<li class="next"><a class="page-link" href="'.get_the_permalink(get_the_ID()).'?pg='.$pages_count.'" aria-label="Next"><span>&raquo;</span></a></li>';
+            echo '<li class="page-item"><a class="page-link" href="'.get_the_permalink(get_the_ID()).'?pg='.$pages_count.'" aria-label="Next"><span>&raquo;</span></a></li>';
             ?>
             </ul>
-        </div>
+        </nav>
     <?php endif;
 }
