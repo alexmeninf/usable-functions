@@ -88,7 +88,7 @@ $('#contact_form').on('submit', function(){
 					    timeout: 10500
 					});
 			    }else {
-                    $('#contact-form button').html('Enviar Novamente');
+                    $('#contact_form button').html('Enviar Novamente');
                     iziToast.danger({
 					    title: 'Oops! Ocorreu um erro ao enviar sua mensagem. Tente novamente mais tarde.',
 					    position: 'topRight',
