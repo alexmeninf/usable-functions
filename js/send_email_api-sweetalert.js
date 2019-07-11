@@ -89,7 +89,7 @@
 						    confirmButtonText: 'Fechar'
 						});
 				    }else {
-	                    $('#contact-form button').html('Enviar Novamente');
+	                    $('#contact_form button').html('Enviar Novamente');
 	                    Swal.fire({
 						    title: 'Oops!',
 						    text: 'Ocorreu um erro ao tentar enviar sua mensagem.',
