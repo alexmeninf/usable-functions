@@ -1,3 +1,5 @@
+<?php
+
 /*===================================================
 =            UPDATE WORDPRESS LOGIN LOGO DARK            =
 ===================================================*/
@@ -10,7 +12,7 @@ function my_login_logo() { ?>
 
 
 /*===================================================
-=            UPDATE WORDPRESS LOGIN LOGO            =
+=            UPDATE WORDPRESS LOGIN LOGO Light            =
 ===================================================*/
 function my_login_logo() { ?>
 	<style type="text/css">
