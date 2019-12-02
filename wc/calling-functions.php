@@ -1,6 +1,6 @@
 <?php
 
-// get shop
+// get shop link
 get_permalink( woocommerce_get_page_id( 'shop' ) );
 
 // get cart content and count
