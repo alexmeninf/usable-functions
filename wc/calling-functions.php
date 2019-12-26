@@ -9,6 +9,9 @@ WC()->cart->get_cart_contents_count();
 // get cart total value
 WC()->cart->total;
 
+// Price format
+wc_price( WC()->cart->total, array(false, '', ',', '.') ) ;
+
 // get cart url
 wc_get_cart_url();
 
