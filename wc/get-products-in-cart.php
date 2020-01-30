@@ -1,4 +1,4 @@
-<ul>
+<ul class="cart-fragments">
   <?php do_action( 'woocommerce_before_cart_contents' ); ?>
   <?php if(WC()->cart->is_empty()): ?>
     <li class="empty-cart-txt">Seu Carrinho está Vazio!</li>
@@ -28,7 +28,7 @@
           $attributes .=  wc_get_formatted_cart_item_data( $cart_item );
         }
     ?>
-        <li class="item-product" data-item_key="<?php echo $cart_item_key; ?>">
+        <li data-id="<?php echo $cart_item_key; ?>">
           <div class="img-product">
             <a href="<?php echo $product_permalink; ?>"><?php echo $thumbnail; ?></a>
           </div>
@@ -42,6 +42,7 @@
             </div><!-- /.price -->
           </div><!-- /.info-product -->
 
+          <div class="clearfix"></div>
           <span class="delete remove-item" data-cart-item-key="<?=$cart_item_key;?>">x</span>
         </li>
       <?php } ?>
