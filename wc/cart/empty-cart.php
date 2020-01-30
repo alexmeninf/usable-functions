@@ -3,7 +3,7 @@
 add_action( 'woocommerce_cart_actions', 'add_button_empty_cart' );
 function add_button_empty_cart() { 
 	if ( WC()->cart->get_cart_contents_count() > 1 ) { ?>
-		<a class="button empty-btn" href="<?= wc_get_cart_url(); ?>?empty-cart"><?php _e( 'Empty Cart', 'woocommerce' ); ?></a>
+		<a class="button empty-btn" href="<?= wc_get_cart_url(); ?>?empty-cart"><?php _e( 'Limpar carrinho', 'woocommerce' ); ?></a>
 	<?php }
 }
 
