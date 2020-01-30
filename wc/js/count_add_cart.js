@@ -1,4 +1,4 @@
-$('.add_to_cart_button').on('click', function () {
+$('.add_to_cart_button, .single_add_to_cart_button').on('click', function () {
   let countClass = 'CLASS_NAME';
   let oldValue = $(countClass).html();
 
