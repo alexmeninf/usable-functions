@@ -1,5 +1,8 @@
+<?php
+
 add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
 add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');  
+
 function woocommerce_ajax_add_to_cart() {
   $product_id = apply_filters('woocommerce_add_to_cart_product_id', absint($_POST['product_id']));
   $quantity = empty($_POST['quantity']) ? 1 : wc_stock_amount($_POST['quantity']);
