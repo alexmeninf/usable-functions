@@ -10,10 +10,11 @@ Number.prototype.formatMoney = function (places, symbol, thousand, decimal) {
   return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
 };
 
-function get_total_price_cart() {
+// update total price in cart
+$("body").on('DOMSubtreeModified', ".cart-fragments", function () {
   let getPrice = parseFloat($('.cart-fragments').attr('data-totals-cart'));
   getPrice = getPrice.formatMoney(2, "R$ ", ".", ",");
-  return $('.price-cart, .total > .price').html(getPrice); // lugares onde vao ser exibidos os valores
-}
+  return $('.price-cart, .total > .price').html(getPrice);
+});
 
 // .cart-fragments => é o pai dos itens no carrinho
