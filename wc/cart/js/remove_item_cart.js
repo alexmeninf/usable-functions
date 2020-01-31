@@ -1,6 +1,7 @@
 // remove item in cart
-$('.remove-item').click(function (e) {
+$(document).on('click', '.remove-item', function (e) {
 	e.preventDefault();
+
 	let ajaxurl = $('meta[name=urlajax]').attr('content');
 	let parentItem = $(this).parent();
 	let parentItem2 = $(this).parent().parent();
@@ -36,7 +37,7 @@ $('.remove-item').click(function (e) {
 				});
 
 				// reload cart page to update data
-				if (document.location.href == ajaxurl + '/carrinho/') {
+				if (document.location.href == ajaxurl + '/carrinho/' || document.location.href == ajaxurl + '/finalizar-compra/') {
 					document.location.reload(true);
 				}
 			}
