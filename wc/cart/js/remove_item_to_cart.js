@@ -24,11 +24,22 @@ $(document).on('click', '.remove-item', function (e) {
 				// remove item
 				$('.dropdown-box ul li[data-id=' + parentItem.attr('data-id') + ']').remove();
 
+				// Update cart
+				var data = {
+					'action': 'mode_theme_update_mini_cart'
+				};
+				$.post(
+					woocommerce_params.ajax_url, // The AJAX URL
+					data, // Send our PHP function
+					function (response) {
+						$('.the_cart').html(response); // Repopulate the specific element with the new content
+					}
+				);
+
 				// if empty, show message
 				if (parentItem2.has('li').length == 0) {
 					$('.dropdown-box ul').html('<li class="empty-cart-txt">Seu Carrinho está Vazio!</li>');
 					$('.btn-cart').html(`<a href="${ajaxurl}/loja" class="view-cart">Fazer compras</a>`);
-					$('.total .price, .price-cart').html('R$ 00,00');
 				}
 
 				Swal.fire({

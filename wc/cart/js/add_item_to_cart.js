@@ -1,3 +1,4 @@
+// add to cart			
 $('.add_to_cart_button').on('click', function (e) {
   e.preventDefault();
   let countClass = '.icon-cart span';
