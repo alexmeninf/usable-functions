@@ -12,6 +12,6 @@ $('.add_to_cart_button').on('click', function (e) {
       $('.btn-cart').html(
         `<a href="${ajaxurl}/carrinho/" class="view-cart">Ver Carrinho</a>
         <a href="${ajaxurl}/finalizar-compra/" class="check-out">Finalizar Compra</a>`);
-      }
+    }
   }, 1200);
 });

@@ -1,4 +1,4 @@
-<ul class="cart-fragments">
+<ul class="cart-fragments" data-totals-cart="<?= WC()->cart->total ?>">
   <?php do_action( 'woocommerce_before_cart_contents' ); ?>
   <?php if(WC()->cart->is_empty()): ?>
     <li class="empty-cart-txt">Seu Carrinho está Vazio!</li>

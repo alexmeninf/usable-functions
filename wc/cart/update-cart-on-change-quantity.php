@@ -6,7 +6,7 @@ function programa_wp_atualizar_qtd_carrinho() {
 		?> 
 		<script type="text/javascript"> 
 			jQuery('div.woocommerce').on('click', 'input.qty', function(){ 
-			jQuery("[name='update_cart']").trigger("click"); 
+				jQuery("[name='update_cart']").trigger("click"); 
 			}); 
 		</script> 
 		<?php 
