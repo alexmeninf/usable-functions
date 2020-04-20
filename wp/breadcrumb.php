@@ -41,7 +41,9 @@ function get_breadcrumb() {
 		} elseif (is_404()) {
 			echo '<li '.$class.'>&nbsp;Página não encontrada </li>';
 		} elseif (is_tag()) {
+			echo "<li ".$class.">";
 			single_tag_title();
+			echo "</li>";
 		} elseif (is_tax()) {
 			$term=get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
 			echo "<li ".$class.">".$term->name."</li>";
