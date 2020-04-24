@@ -1,7 +1,6 @@
 <?php
 
-
-function the_page_links() {
+function the_nav_pages() {
 	$sql_pages = new WP_Query(array('post_type' => 'page', 'posts_per_page' => -1, 'orderby' => 'menu_order', 'order' => 'asc'));
 
     if($sql_pages->have_posts()):
