@@ -46,26 +46,60 @@ $('#contact_form').on('submit', function () {
 	} else {
 		$('#contact_form button').html('Enviando...');
 
-		var url = window.location.href; // Returns full URL (https://example.com/path/example.php)
-		let content = `
-			<div style="max-width:550px;border:1px solid #dedede;border-radius:22px;margin:0 auto;padding:30px 35px;display:flex;align-items:center;justify-content:center;">
-			<div>
-				<h2 style="color:#2196f3;font-size:25px;margin-bottom:20px;">
-					Formulário de Contato - Nome empresa
-				</h2>
-				<p>
-					<b style="font-size:16px">Nome:</b> ${name} <br>
-					<b style="font-size:16px">E-mail:</b> ${email} <br>
-					<b style="font-size:16px">Telefone:</b> ${phone} <br>
-					<b style="font-size:16px">Assunto:</b> ${subject} <br>
-				</p>
-				<p>
-					<b style="margin-bottom:20px;font-size:16px">Mensagem:</b><br> ${message}
-				</p><hr>
-				<small style="font-size:12px;color:#595959;">E-mail enviado através da página do site <b><a href="${url}" target="_blank">${url}</a><b>.</small>
-			</div>
-		</div>
-		`;
+		let url = window.location.href,
+          host = window.location.host,
+          content = "";
+
+        let wrap =
+          'style="max-width: 600px;margin: 0 auto;font-family:Roboto,Google Sans,Helvetica,Arial,sans-serif;"',
+          card =
+          'style="border:1px solid #dedede;border-radius:20px;overflow:hidden"',
+          header =
+          'style="padding:15px;background: #fff;text-align: center;"',
+          info =
+          'style="padding: 20px 50px 50px;font-size:16px;border-top:1px solid #ddd"',
+          title =
+          'style="color:#3c3c3b;font-size: 30px;font-weight: 800;margin: 20px 0 40px 0;font-family: Google Sans,Roboto,Helvetica,Arial,sans-serif;"',
+          subtitle = 'style="font-weight: 200;margin-top: 40px;"',
+          footer =
+          'style="margin-top: 30px;font-size: 13px;text-align:center;color: #666767"',
+          year = new Date().getFullYear(),
+          linkColor = 'style="color: #2f2e2e;text-decoration:none"';
+        content = `
+      <html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+        </head>
+        <body>
+          <div ${wrap}>
+            <div ${card}>
+              <div>
+                <div ${header}>
+                  <a href="#">
+                    <img src="LOGO_EMPRESA" style="width:auto;height: 38px;">
+                  </a>
+                </div>
+                
+                <div ${info}>
+                  <h2 ${title}>Título aqui</h2>
+                  <p>subtítulo aqui</p>
+                  <h2 ${subtitle}>Informações recebidas</h2>
+                  <p><b>Nome:</b> ${name}</p>
+                  <p><b>E-mail:</b> ${email}</p>
+                  <p><b>Telefone:</b> ${phone}</p>
+		  <p><b>Assunto:</b> ${subject}</p>
+                  <p style="margin-bottom:0!important"><b>Mensagem:</b> ${message}</p>
+                </div>
+              </div>
+            </div>
+      
+            <div ${footer}>
+              <p>E-mail recebido através da página do site: <a href="${url}" target="_blank" ${linkColor}>${host}</a>.</p>
+              <p>&copy; ${year} Nome da Empresa.</p>
+            </div>
+          </div>
+        </body>
+      </html>`;
 
 		$.ajax({
 			url: 'https://mailsender.dvulgsolucoes.com.br/api/email/send',
