@@ -1,9 +1,5 @@
-function get_breadcrumb() {
+function the_breadcrumb($tag_list = '<ul>', $class='') {
 	global $post;
-
-	//Configuração geral
-	$class=''; // Coloque o estilo da classe dli> aqui
-	$tag_list='<ul>'; //User <ul> ou <ol>
 
 	if( !(is_home() || is_front_page())) {
 		echo $tag_list;
