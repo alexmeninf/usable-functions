@@ -92,3 +92,13 @@
     }
   }
 }
+
+#swipe-area {
+  position: fixed;
+  width: 30px;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: transparent;
+  z-index: 9999;
+}
