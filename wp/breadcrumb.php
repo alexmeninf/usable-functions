@@ -1,3 +1,5 @@
+<?php 
+
 function the_breadcrumb($tag_list = '<ul>', $class='') {
 	global $post;
 
