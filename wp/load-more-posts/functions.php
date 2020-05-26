@@ -2,7 +2,7 @@ function load_more_posts() {
 	$next_page = $_POST['current_page'] + 1;
 	
   $query = new WP_Query([
-		'post_type' => 'medico',
+		'post_type' => 'post',
 		'order' => 'ASC',
 		'offset' => 3, // offset dos posts no index.php
 		'posts_per_page' => 3, //mesmo do index.php
@@ -13,7 +13,7 @@ function load_more_posts() {
 
     while ($query->have_posts()) : $query->the_post();
 
-			get_template_part('template-parts/cards/content-doctor');
+			the_title();
 
     endwhile;
 
