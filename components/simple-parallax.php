@@ -33,36 +33,48 @@
   
   
   <script>
-  var makeParallax = function () {
+var makeParallax = function () {
 	var scrollTop = $(this).scrollTop();
-	if (scrollTop < 300)
+	if (scrollTop < 400)
 		$('.parallax-box .parallax-image').css({
-			'transform': 'translate3d(0px, ' + (scrollTop / 2) + 'px, 0px)',
-			'filter': 'blur(' + scrollTop / 10 + 'px)',
+			'transform': 'translate3d(0px, ' + (scrollTop / 2) + 'px, 0px)'
 		});
 
-	var opacity = 1;
-	if (scrollTop > 10 && scrollTop < 50)
+	var opacity = 1,
+		filter = 0;
+	if (scrollTop > 10 && scrollTop < 50) {
 		opacity = 0.9;
-	else if (scrollTop >= 50 && scrollTop < 100)
+	} else if (scrollTop >= 50 && scrollTop < 100) {
 		opacity = 0.8;
-	else if (scrollTop >= 100 && scrollTop < 150)
+	} else if (scrollTop >= 100 && scrollTop < 150) {
 		opacity = 0.7;
-	else if (scrollTop >= 150 && scrollTop < 200)
+	} else if (scrollTop >= 150 && scrollTop < 200) {
 		opacity = 0.6;
-	else if (scrollTop >= 200 && scrollTop < 250)
+		filter = 3;
+	} else if (scrollTop >= 200 && scrollTop < 250) {
 		opacity = 0.5;
-	else if (scrollTop >= 250 && scrollTop < 300)
+		filter = 5;
+	} else if (scrollTop >= 250 && scrollTop < 300) {
 		opacity = 0.4;
-	else if (scrollTop >= 300 && scrollTop < 350)
+		filter = 8;
+	} else if (scrollTop >= 300 && scrollTop < 350) {
 		opacity = 0.3;
-	else if (scrollTop >= 350 && scrollTop < 400)
+		filter = 12;
+	} else if (scrollTop >= 350 && scrollTop < 400) {
 		opacity = 0.2;
-	else if (scrollTop >= 400)
+		filter = 16;
+	} else if (scrollTop >= 400) {
 		opacity = 0;
+		filter = 24;
+	}
 
 	$('.parallax-box .post-overlay-inner').css({
 		'opacity': opacity
 	});
+
+	$('.parallax-box .parallax-image').css({
+		'filter': 'blur(' + filter + 'px)',
+	});
 }
+
 </script>
