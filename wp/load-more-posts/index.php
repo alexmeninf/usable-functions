@@ -1,6 +1,8 @@
 <html>
   <head>
-    <meta name="getURL" content="<?php bloginfo('url') ?>">
+      <meta name="themeroot" content="<?= THEMEROOT ?>">
+      <meta name="getURL" content="<?php bloginfo('url') ?>">
+      <meta name="currentUrl" content="<?php the_permalink() ?>">
   </head>
 
   <body>
