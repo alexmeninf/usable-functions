@@ -39,13 +39,13 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2) {
 		$url = get_tag_link(get_queried_object()->term_id);
 	
 	} elseif (is_day()) {
-		$url = get_day_link(get_queried_object()->term_id);
+		$url = get_day_link(get_the_time('Y'), get_the_time('m'), get_the_time('d'));
 	
 	} elseif (is_month()) {
-		$url = get_month_link(get_queried_object()->term_id);
+		$url = get_month_link(get_the_time('Y'), get_the_time('m'));
 	
 	} elseif (is_year()) {
-		$url = get_year_link(get_queried_object()->term_id);
+		$url = get_year_link(get_the_time('Y'));
 	
 	} elseif (is_author()) {
 		$url = get_author_posts_url(get_queried_object()->term_id);
@@ -54,7 +54,7 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2) {
 		$url  = get_the_permalink(get_the_ID());
 	}
 
-	$url = $url . '?' . $args;
+	$url = esc_url($url) . '? ' . $args;
  
   if( $pages_count > 0 ) : ?>
 		<nav aria-label="Page navigation example">
