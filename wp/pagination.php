@@ -54,7 +54,7 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2) {
 		$url  = get_the_permalink(get_the_ID());
 	}
 
-	$url = esc_url($url) . '? ' . $args;
+	$url = esc_url($url) . '?' . $args;
  
   if( $pages_count > 0 ) : ?>
 		<nav aria-label="Page navigation example">
