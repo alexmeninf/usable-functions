@@ -2,6 +2,10 @@
 
 function the_breadcrumb($tag_list = '<ul>', $class='') {
 	global $post;
+	
+	if (!empty($class) && trim($class) != '') {
+		$class = 'class="' . $class . '"';
+	}
 
 	if( !(is_home() || is_front_page())) {
 		echo $tag_list;
