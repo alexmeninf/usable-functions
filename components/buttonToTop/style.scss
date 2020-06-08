@@ -1,0 +1,125 @@
+.btn-to-top {
+  background-color: rgb(8, 133, 133);
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  -webkit-box-shadow: 0 1px 3px 0 rgba(11, 11, 11, .1);
+  -webkit-justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  bottom: 30px;
+  box-shadow: 0 1px 3px 0 rgba(11, 11, 11, .1);
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 20px;
+  height: 50px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  position: fixed;
+  right: 30px;
+  width: 50px;
+  overflow: hidden;
+  z-index: 5;
+
+  &.visible {
+    visibility: visible;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  &.hidden {
+    visibility: hidden;
+    -webkit-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes vlt_btn_effect {
+  49% {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0)
+  }
+
+  50% {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    opacity: 0
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1
+  }
+}
+
+@keyframes vlt_btn_effect {
+  49% {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0)
+  }
+
+  50% {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    opacity: 0
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1
+  }
+}
+
+.btn-effect {
+
+  &:hover {
+    &::after {
+      background-color: #ee3364;
+      height: 100%;
+    }
+
+    span {
+      -webkit-animation-duration: .3s;
+      -webkit-animation-fill-mode: forwards;
+      -webkit-animation-name: vlt_btn_effect;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-duration: .3s;
+      animation-fill-mode: forwards;
+      animation-name: vlt_btn_effect;
+      animation-timing-function: ease-in-out;
+    }
+  }
+
+  &::after {
+    -webkit-transition-duration: .3s;
+    -webkit-transition-property: all;
+    -webkit-transition-timing-function: ease-in-out;
+    bottom: 0;
+    content: '';
+    height: 0;
+    left: 0;
+    position: absolute;
+    transition-duration: .3s;
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+    width: 100%;
+    z-index: 0;
+  }
+
+  span {
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+}
