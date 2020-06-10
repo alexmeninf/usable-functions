@@ -1,19 +1,19 @@
 ajaxLoadMore = () => {
 
   const button = document.querySelector('.load-more-button');
+  let current_page = document.querySelector('.posts-list').dataset.page;
+  let max_pages = document.querySelector('.posts-list').dataset.max;
 
   if (typeof (button) != 'undefined' && button != null) {
 
     button.addEventListener('click', (e) => {
       e.preventDefault();
 
-      $('.load-more-button').html(`Carregando...`);
+      $('.load-more-button').html(`<i class="material-icons loading-icon">&#xE5D5;</i>
+      <span>Carregando...</span>`);
 
       let baseUrl = $('meta[name="getURL"]').attr('content'),
         currentUrl = $('meta[name="currentUrl"]').attr('content');
-
-      let current_page = document.querySelector('.posts-list').dataset.page;
-      let max_pages = document.querySelector('.posts-list').dataset.max;
 
       let params = new URLSearchParams();
       params.append('action', 'load_more_posts');
@@ -28,17 +28,24 @@ ajaxLoadMore = () => {
 
           window.history.pushState('', '', currentUrl + 'page/' + (parseInt(document.querySelector('.posts-list').dataset.page) + 1));
 
-          //console.log(parseInt(document.querySelector('.posts-list').dataset.page));
-
           document.querySelector('.posts-list').dataset.page++;
 
-          $('.load-more-button').html(`Mais posts`);
+          $('.load-more-button').html(`<i class="material-icons">&#xE5D5;</i>
+            <span>Mais notícias</span>`);
 
-          if (document.querySelector('.posts-list').dataset.page == document.querySelector('.posts-list').dataset.max) {
-            button.parentNode.removeChild(button);
+          // get update data
+          current_page = document.querySelector('.posts-list').dataset.page;
+          max_pages = document.querySelector('.posts-list').dataset.max;
+
+          if (current_page == max_pages) {
+            button.remove();
           }
         })
     });
+
+    if (current_page == max_pages) {
+      button.remove();
+    }
   }
 }
 
