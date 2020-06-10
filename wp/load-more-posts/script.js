@@ -1,12 +1,12 @@
 ajaxLoadMore = () => {
 
   const button = document.querySelector('.load-more-button');
-  let current_page = document.querySelector('.posts-list').dataset.page,
-    max_pages = document.querySelector('.posts-list').dataset.max,
-    offset_pages = document.querySelector('.posts-list').dataset.offset,
-    per_page = document.querySelector('.posts-list').dataset.per_page;
 
   if (typeof (button) != 'undefined' && button != null) {
+    let current_page = document.querySelector('.posts-list').dataset.page,
+      max_pages = document.querySelector('.posts-list').dataset.max,
+      offset_pages = document.querySelector('.posts-list').dataset.offset,
+      per_page = document.querySelector('.posts-list').dataset.per_page;
 
     button.addEventListener('click', (e) => {
       e.preventDefault();
