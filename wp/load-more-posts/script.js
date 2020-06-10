@@ -1,8 +1,10 @@
 ajaxLoadMore = () => {
 
   const button = document.querySelector('.load-more-button');
-  let current_page = document.querySelector('.posts-list').dataset.page;
-  let max_pages = document.querySelector('.posts-list').dataset.max;
+  let current_page = document.querySelector('.posts-list').dataset.page,
+    max_pages = document.querySelector('.posts-list').dataset.max,
+    offset_pages = document.querySelector('.posts-list').dataset.offset,
+    per_page = document.querySelector('.posts-list').dataset.per_page;
 
   if (typeof (button) != 'undefined' && button != null) {
 
@@ -19,6 +21,8 @@ ajaxLoadMore = () => {
       params.append('action', 'load_more_posts');
       params.append('current_page', current_page);
       params.append('max_pages', max_pages);
+      params.append('offset_pages', offset_pages);
+      params.append('per_page', per_page);
 
       axios.post(baseUrl + '/wp-admin/admin-ajax.php', params)
         .then(res => {
@@ -26,7 +30,7 @@ ajaxLoadMore = () => {
 
           posts_list.innerHTML += res.data.data;
 
-          window.history.pushState('', '', currentUrl + 'page/' + (parseInt(document.querySelector('.posts-list').dataset.page) + 1));
+          // window.history.pushState('', '', currentUrl + 'page/' + (parseInt(document.querySelector('.posts-list').dataset.page) + 1));
 
           document.querySelector('.posts-list').dataset.page++;
 
