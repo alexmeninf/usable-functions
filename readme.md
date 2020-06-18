@@ -1,8 +1,8 @@
-# Funções para o wordpress e WooCommerce
+# Funções para o wordpress, funções e componentes
 
-**pt-BR** - Estes arquivos incluem funções para usar no functions.php do WordPress e main.js.
+**pt-BR** - Estes arquivos incluem funções para usar WordPress além de componentes e outras funcionalidades.
 
-**en-US** - These files include functions for use in WordPress functions.php and main.js.
+**en-US** - These files include functions for using WordPress in addition to components and other functionality.
 
 - Author: Alexandre Menin
 - Tested up to: 5.2
