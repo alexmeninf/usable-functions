@@ -1,4 +1,4 @@
-# Funções para o wordpress, funções e componentes
+# Funções para o wordpress e componentes
 
 **pt-BR** - Estes arquivos incluem funções para usar WordPress além de componentes e outras funcionalidades.
 
