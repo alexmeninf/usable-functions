@@ -1,37 +1,35 @@
-/***********************************************
- * Scroll to top
- ***********************************************/
-(function($) {
+  btnToTop = () => {
+    let offset = $(window).height() + 100,
+      lastScrollTop = 0;
 
-	'use strict';
+    function show_btn() {
+      $('.btn-to-top').removeClass('hidden').addClass('visible');
+    }
 
-	function show_btn() {
-		$('.btn-to-top').removeClass('hidden').addClass('visible');
-	}
+    function hide_btn() {
+      $('.btn-to-top').removeClass('visible').addClass('hidden');
+    }
 
-	function hide_btn() {
-		$('.btn-to-top').removeClass('visible').addClass('hidden');
-	}
+    hide_btn();
 
-	hide_btn();
+    $(window).scroll(function () {
+      let st = $(this).scrollTop();
 
-	throttleScroll(function(type, scroll) {
-		var offset = $(window).height() + 100;
+      if (st > lastScrollTop) {
+        if (st > offset) {
+          show_btn();
+        }
+      } else {
+        hide_btn();
+      }
+      lastScrollTop = st;
+    });
 
-		if ( scroll > offset) {
-			if (type === 'down') {
-				hide_btn();
-			} else if (type === 'up') {
-				show_btn();
-			}
-		} else {
-			hide_btn();
-		}
-	});
+    $(document).on('click', '.btn-to-top', function (e) {
+      e.preventDefault();
+      $('html, body').animate({
+        scrollTop: 0
+      }, 1200);
 
-	$(document).on('click', '.btn-to-top', function(e) {
-		e.preventDefault();
-		$('html').scrollTo(0, 500);
-	});
-
-})(jQuery);
+    });
+  }

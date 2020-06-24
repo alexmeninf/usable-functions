@@ -1,0 +1,16 @@
+.fixed-header {
+  background: -webkit-linear-gradient(to top, transparent, rgba(#000, .4));
+  background: -moz-linear-gradient(to top, transparent, rgba(#000, .4));
+  background: -o-linear-gradient(to top, transparent, rgba(#000, .4));
+  background: linear-gradient(to top, transparent, rgba(#000, .4));
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  @extend %transition;
+
+  &.new-bg {
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(#000, .15);
+  }
+}
