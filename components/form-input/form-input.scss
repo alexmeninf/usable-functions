@@ -1,0 +1,147 @@
+$bg-form-color:       $color-light;
+$color-text-form:     $color-dark;
+$color-focus-default: $color-default;
+
+.form-main {
+
+  input,
+  textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  textarea {
+    max-height: 200px;
+  }
+
+  input,
+  select,
+  textarea {
+    background: none;
+    border: 0;
+    color: $color-text-form;
+    font-size: 1em;
+    padding: 0.75em 0;
+    transition: all .3s ease;
+    width: 100%;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0px 1000px $bg-form-color inset;
+    }
+
+    &:hover {
+      transition: all .3s;
+    }
+
+    &:not(:placeholder-shown) {
+      +span {
+        color: $color-focus-default;
+        transform: translateY(-26px) scale(.75);
+      }
+    }
+
+    &:focus {
+      background: none;
+      outline: none;
+
+      +span {
+        color: $color-focus-default;
+        transform: translateY(-26px) scale(.78);
+      }
+    }
+  }
+
+  .form-group {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .txt {
+    color: #66696d;
+    cursor: auto;
+    font-size: 1em;
+    font-weight: 500;
+    left: 0;
+    position: absolute;
+    top: 16px;
+    transform-origin: 0 0;
+    transition: all .2s ease;
+  }
+
+  .bar {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: $color-focus-default;
+    transform-origin: 0 0;
+    transform: scaleX(0);
+    transition: all .4s ease;
+  }
+}
+
+.standard-basic {
+
+  input,
+  select,
+  textarea {
+    border-bottom: 1px solid #C8CCD4;
+
+    &:hover {
+      border-bottom-width: 2px;
+      margin-bottom: -1px;
+    }
+
+    &:focus {
+      +span {
+        +.bar {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+
+  textarea {
+    margin-bottom: -6px;
+
+    &:hover {
+      margin-bottom: -7px;
+    }
+  }
+}
+
+.outlined-basic {
+
+  input,
+  select,
+  textarea {
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    padding: 13px 15px;
+
+    &:hover,
+    &:focus {
+      border-color: $color-focus-default;
+    }
+
+    &:not(:placeholder-shown),
+    &:focus {
+      +span {
+        transform: translate(4px, -26px) scale(0.75);
+      }
+    }
+  }
+
+  .txt {
+    top: .9em;
+    background: $bg-form-color;
+    padding: 0 7px;
+    left: 8px;
+  }
+}
