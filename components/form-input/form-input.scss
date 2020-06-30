@@ -8,10 +8,12 @@ $color-focus-default: $color-default;
   textarea {
     -webkit-appearance: none;
     -moz-appearance: none;
+    appearance: none;
   }
 
   textarea {
     max-height: 200px;
+    min-height: 52px;
   }
 
   input,
