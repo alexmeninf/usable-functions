@@ -1,5 +1,13 @@
 <?php 
+/**
+ * Minify html file
+ */
 function sanitize_output($buffer) {
+	// Remove javaScript comments first!
+	$search = '/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/';
+	$replace = '';
+	$buffer = preg_replace($search, $replace, $buffer);
+
 	$search = array(
 		'/\>[^\S ]+/s',      // strip whitespaces after tags, except space
 		'/[^\S ]+\</s',      // strip whitespaces before tags, except space
