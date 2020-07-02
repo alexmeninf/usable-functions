@@ -4,9 +4,17 @@
  */
 function sanitize_output($buffer) {
 	// Remove javaScript comments first!
-	$search = '/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/';
-	$replace = '';
-	$buffer = preg_replace($search, $replace, $buffer);
+	if (strstr($buffer, '<script')) {
+		$search = '/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/';
+		$replace = '';
+		
+		preg_match_all('/\<script(.*?)?\>(.|\s)*?\<\/script\>/i', $buffer, $scripts);
+
+		foreach ($scripts[0] as $key => $value) {
+			$no_comments = preg_replace($search, $replace, $value);
+			$buffer = str_replace($scripts[0][$key], $no_comments, $buffer);
+		}
+	}
 
 	$search = array(
 		'/\>[^\S ]+/s',      // strip whitespaces after tags, except space
