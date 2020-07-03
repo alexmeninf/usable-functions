@@ -1,4 +1,4 @@
-  drawerMobile = () => {
+drawerMobile = () => {
     let drawer = '.drawer-mobile',
       drawerButton = '.drawerButton',
       drawerClose = '.close-menu',
@@ -23,7 +23,7 @@
       }, 200);
     });
 
-    // close
+    // close and open submenu
     $(listMenu + '> li > a,' + drawerClose).click(function () {      
      let parentLi = $(this).parent('li');
      let hasSubmenu = $(this).parents('li');
@@ -31,6 +31,10 @@
       if (parentLi.find(submenu).length) {
         hasSubmenu.siblings().find(submenu).slideUp();
         parentLi.find('>' + submenu).slideToggle();
+
+        hasSubmenu.siblings().find('> a > i').removeClass('rotateIcon');
+        $(this).find('i').toggleClass('rotateIcon');
+        
         return false;
 
       } else {
@@ -76,4 +80,4 @@
         $(drawer).removeClass(drawerOpen);
       }, 600);
     });
-  }
+ }
