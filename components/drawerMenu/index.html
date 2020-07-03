@@ -4,7 +4,14 @@
 		<i class="fal fa-times"></i>
 	</span>
 	<ul>
-		<li><a href="<?= strstr($_SERVER['REQUEST_URI'], '.php') ? get_url() . '/' : '' ?>">Início</a></li>
-		<li><a href="<?= strstr($_SERVER['REQUEST_URI'], '.php') ? get_url() . '/#main' : '#main' ?>">Quero participar</a></li>
+		<li><a href="#">Início</a></li>
+		<li><a href="">Exemplo submenu <i class="fal fa-arrow-down"></i></a>
+			<ul class="submenu">
+				<li><a href="javascript:void(0);">item 1</a></li>
+				<li><a href="javascript:void(0);">item 2</a></li>
+				<li><a href="javascript:void(0);">item 3</a></li>
+				<li><a href="javascript:void(0);">item 4</a></li>
+			</ul>
+		</li>
 	</ul>
 </nav>
