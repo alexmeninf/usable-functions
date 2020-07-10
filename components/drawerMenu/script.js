@@ -39,6 +39,7 @@ drawerMobile = () => {
 
       } else {
         $(listMenu + '> li').find(submenu).slideUp();
+        $(listMenu + '> li').find('i').removeClass('rotateIcon');
         $('body').css('overflow-y', 'scroll');
         $(drawerClose).removeClass('open');
         $(listMenu).animate({
