@@ -21,7 +21,7 @@
     }
 
     function closeMenuSwiped() {
-      $('body').css('overflow-y', 'scroll');
+      $('body').css('overflow', 'auto');
       $(drawerClose).removeClass('open');
       $(listMenu).animate({
         left: '-100%'
