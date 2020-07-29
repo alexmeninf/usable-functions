@@ -1,4 +1,5 @@
 
+smoothClick = (duration = 1500) => {
   // smooth scroll
   $('a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function (event) {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') &&
@@ -12,7 +13,7 @@
         $('html, body').animate({
           scrollTop: target.offset().top
 
-        }, 1500, function () {
+        }, duration, function () {
           var $target = $(target);
           $target.focus();
           if ($target.is(":focus")) { // Checking if the target was focused
@@ -25,3 +26,6 @@
       }
     }
   });
+}
+
+smoothClick();
