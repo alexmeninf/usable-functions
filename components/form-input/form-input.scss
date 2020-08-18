@@ -4,7 +4,7 @@ $color-focus-default: $color-default;
 
 .form-main {
 
-  input,
+  input:not([type=radio]):not([type=checkbox]),
   textarea {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -16,7 +16,7 @@ $color-focus-default: $color-default;
     min-height: 52px;
   }
 
-  input,
+  input:not([type=radio]):not([type=checkbox]),
   select,
   textarea {
     background: none;
@@ -90,7 +90,7 @@ $color-focus-default: $color-default;
 
 .standard-basic {
 
-  input,
+  input:not([type=radio]):not([type=checkbox]),
   select,
   textarea {
     border-bottom: 1px solid #C8CCD4;
@@ -120,7 +120,7 @@ $color-focus-default: $color-default;
 
 .outlined-basic {
 
-  input,
+  input:not([type=radio]):not([type=checkbox]),
   select,
   textarea {
     border: 1px solid #d0d0d0;
