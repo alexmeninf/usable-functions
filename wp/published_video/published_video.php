@@ -58,7 +58,7 @@ function is_published($date) {
 	date_default_timezone_set('America/Sao_Paulo');
 	$check = false;
 
-	if ( strtotime(date('d-m-Y H:i:s')) >= strtotime($date) ) {
+	if ( strtotime(date('Y-m-d H:i:s')) >= strtotime($date . '-3 hours') ) {
 	 $check = true;
 	}
 
