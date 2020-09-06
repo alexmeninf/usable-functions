@@ -55,12 +55,13 @@ function embed_video($iframe) {
  * @return boolean
  */
 function is_published($date) {
-	date_default_timezone_set('America/Sao_Paulo');
-	$check = false;
+  date_default_timezone_set('UTC');
+  
+  $check = false;
 
-	if ( strtotime(date('Y-m-d H:i:s')) >= strtotime($date . '-3 hours') ) {
-	 $check = true;
-	}
+  if ( strtotime(date('Y-m-d H:i:s') . '-3 hours') >= strtotime($date) ) {
+    $check = true;
+  }
 
-	return $check;
+   return $check;
 }
