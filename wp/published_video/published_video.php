@@ -33,9 +33,8 @@ function embed_video($iframe) {
   $src = $matches[1];
 
   $params = array(
-    'controls'  => 0,
-    'hd'        => 1,
-    'autohide'  => 1
+    'controls'  => 1,
+    'rel'       => 0,
   );
   $new_src = add_query_arg($params, $src);
   $iframe  = str_replace($src, $new_src, $iframe);
