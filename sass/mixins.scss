@@ -1,0 +1,32 @@
+@mixin buttonColor($bg, $color, $colorHover, $amount: 10%) {
+  background-color: $bg;
+  color: $color;
+
+  &:hover,
+  &:active,
+  &:focus {
+    @if $colorHover=='lighten' {
+      background-color: lighten($bg, $amount);
+    }
+
+    @else if $colorHover=='darken' {
+      background-color: darken($bg, $amount);
+    }
+
+    color: $color;
+  }
+}
+
+@mixin media($width, $type: min, $dimension: width) {
+  @if map_has_key($grid-breakpoints, $width) {
+    $width: map_get($grid-breakpoints, $width);
+  }
+
+  @if $type==max {
+    $width: $width - 1px;
+  }
+
+  @media only screen and (#{$type}-#{$dimension}: $width) {
+    @content;
+  }
+}
