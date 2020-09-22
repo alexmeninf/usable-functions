@@ -51,6 +51,7 @@ $margin-y-header: 5px;
   }
 
   .img-brand {
+    display: inline-block;
     margin: $margin-y-header 0;
 
     img {
