@@ -10,6 +10,7 @@
   z-index: 1000;
   display: none;
   transition: all .3s ease-in;
+  user-select: none;
 
   &.drawerOpen {
     display: inline;
