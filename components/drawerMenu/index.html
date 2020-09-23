@@ -3,15 +3,22 @@
 	<span class="close-menu" aria-label="Fechar">
 		<i class="fal fa-times"></i>
 	</span>
-	<ul>
-		<li><a href="#">Início</a></li>
-		<li><a href="">Exemplo submenu <i class="fal fa-arrow-down"></i></a>
-			<ul class="submenu">
-				<li><a href="javascript:void(0);">item 1</a></li>
-				<li><a href="javascript:void(0);">item 2</a></li>
-				<li><a href="javascript:void(0);">item 3</a></li>
-				<li><a href="javascript:void(0);">item 4</a></li>
-			</ul>
-		</li>
-	</ul>
+	<div class="wrap">
+		<div class="img-brand">
+			<a href="<?php bloginfo('url') ?>" title="<?php bloginfo('name') ?>">
+				<img src="#" alt="<?php bloginfo('name') ?>">
+			</a>
+		</div>
+		<ul>
+			<li><a href="#">Início</a></li>
+			<li><a href="">Exemplo submenu <i class="fal fa-arrow-down"></i></a>
+				<ul class="submenu">
+					<li><a href="javascript:void(0);">item 1</a></li>
+					<li><a href="javascript:void(0);">item 2</a></li>
+					<li><a href="javascript:void(0);">item 3</a></li>
+					<li><a href="javascript:void(0);">item 4</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 </nav>
