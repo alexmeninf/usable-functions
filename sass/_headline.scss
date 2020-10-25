@@ -1,0 +1,52 @@
+// Headline sizes
+// components/_headlines.scss
+$fonts: () !default;
+
+$fonts: map-merge(
+  (
+    sm: (
+      sizes: (
+        32px,
+        48px,
+      ),
+    ),
+    md: (
+      sizes: (
+        36px,
+        64px,
+      ),
+    ),
+    lg: (
+      sizes: (
+        50px,
+        92px,
+      ),
+    ),
+  ),
+  $fonts
+);
+
+[class*="headline-"] {
+  display: block;
+  font-weight: 700;
+  letter-spacing: -0.009em;
+  line-height: 1;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+@each $font, $data in $fonts {
+  $sizes: map-get($data, sizes);
+
+  .headline-#{$font} {
+    @for $i from 1 through length($sizes) {
+      @if $i == 1 {
+        font-size: nth($sizes, $i);
+      } @else {
+        @include media(lg) {
+          font-size: nth($sizes, $i);
+        }
+      }
+    }
+  }
+}
