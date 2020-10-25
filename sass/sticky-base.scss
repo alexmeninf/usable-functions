@@ -1,0 +1,26 @@
+.layer1 {
+  background-color: #fff;
+  box-shadow: 0 3px 26px rgba(32, 32, 32, 0.17);
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
+.layer2 {
+  background: #ffffff;
+  height: 100%;
+  margin-top: -100vh;
+  position: relative;
+  z-index: 1;
+  
+  .sticky-height {
+    min-height: 200vh;
+  }
+
+  .sticky-section {
+    min-height: 100vh;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+}
