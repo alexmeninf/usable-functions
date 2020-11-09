@@ -1,0 +1,23 @@
+:root {
+  --negative-margin-video: -50px;
+
+  @include media(lg) {
+    --negative-margin-video: -120px;
+  }
+}
+
+.negative-element {
+  margin-bottom: var(--negative-margin-video);
+
+  @include media(lg) {
+    margin-bottom: var(--negative-margin-video);
+  }
+}
+
+.space-negative {
+  padding-top: calc(#{($default-spacing-y / 1.4)} + (var(--negative-margin-video) * -1));
+
+  @include media(lg) {
+    padding-top: calc(#{$default-spacing-y} + (var(--negative-margin-video) * -1));
+  }
+}
