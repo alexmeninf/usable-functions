@@ -5,22 +5,13 @@ $fonts: () !default;
 $fonts: map-merge(
   (
     sm: (
-      sizes: (
-        32px,
-        48px,
-      ),
+      sizes: (24px, 32px)
     ),
     md: (
-      sizes: (
-        36px,
-        64px,
-      ),
+      sizes: (32px, 48px)
     ),
     lg: (
-      sizes: (
-        50px,
-        92px,
-      ),
+      sizes: (48px, 64px)
     ),
   ),
   $fonts
