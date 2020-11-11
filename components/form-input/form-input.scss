@@ -1,8 +1,12 @@
-$bg-form-color:       $color-light;
-$color-text-form:     $color-dark;
-$color-focus-default: $color-default;
+$bg-form-color:       $color-light;   // Background
+$color-text-form:     $color-dark;    // Cor do texto 
+$color-focus-default: $color-default; // Cor destaque
 
-.form-main {
+// Espaçamento
+$input-space-y: 12px;
+$input-space-x: 13px;
+
+.material-form {
 
   input:not([type=radio]):not([type=checkbox]),
   textarea {
@@ -23,7 +27,7 @@ $color-focus-default: $color-default;
     border: 0;
     color: $color-text-form;
     font-size: 1em;
-    padding: 0.75em 0;
+    padding: $input-space-y $input-space-x;
     transition: all .3s ease;
     width: 100%;
 
@@ -41,12 +45,12 @@ $color-focus-default: $color-default;
     &:not(:placeholder-shown) {
       +span {
         color: $color-focus-default;
-        transform: translateY(-26px) scale(.75);
+        transform: translateY(-26px) scale(.78);
       }
     }
 
     &:focus {
-      background: none;
+      // background: none;
       outline: none;
 
       +span {
@@ -64,15 +68,20 @@ $color-focus-default: $color-default;
   }
 
   .txt {
-    color: #66696d;
+    color: lighten($color-base, 40%);
     cursor: auto;
     font-size: 1em;
     font-weight: 500;
-    left: 0;
+    left: $input-space-x;
     position: absolute;
     top: 16px;
     transform-origin: 0 0;
     transition: all .2s ease;
+    padding-left: 5px;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
   }
 
   .bar {
@@ -93,7 +102,8 @@ $color-focus-default: $color-default;
   input:not([type=radio]):not([type=checkbox]),
   select,
   textarea {
-    border-bottom: 1px solid #C8CCD4;
+    background-color: rgba(213, 213, 213, 0.149);
+    border-bottom: 1px solid $border-color;
 
     &:hover {
       border-bottom-width: 2px;
@@ -123,9 +133,8 @@ $color-focus-default: $color-default;
   input:not([type=radio]):not([type=checkbox]),
   select,
   textarea {
-    border: 1px solid #d0d0d0;
+    border: 1px solid $border-color;
     border-radius: 4px;
-    padding: 13px 15px;
 
     &:hover,
     &:focus {
@@ -135,7 +144,7 @@ $color-focus-default: $color-default;
     &:not(:placeholder-shown),
     &:focus {
       +span {
-        transform: translate(4px, -26px) scale(0.75);
+        transform: translate(0, -26px) scale(0.75);
       }
     }
   }
@@ -143,7 +152,5 @@ $color-focus-default: $color-default;
   .txt {
     top: .9em;
     background: $bg-form-color;
-    padding: 0 7px;
-    left: 8px;
   }
 }
