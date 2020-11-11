@@ -1,10 +1,20 @@
-$bg-form-color:       $color-light;   // Background
-$color-text-form:     $color-dark;    // Cor do texto 
+$bg-form-color: $bg-base; // Background
+$color-text-form: $color-base; // Cor do texto 
 $color-focus-default: $color-default; // Cor destaque
 
 // Espaçamento
 $input-space-y: 12px;
 $input-space-x: 13px;
+
+%input {
+  background: none;
+  border: 0;
+  color: $color-text-form;
+  font-size: 1em;
+  padding: $input-space-y $input-space-x;
+  transition: all .3s ease;
+  width: 100%;
+}
 
 .material-form {
 
@@ -23,13 +33,7 @@ $input-space-x: 13px;
   input:not([type=radio]):not([type=checkbox]),
   select,
   textarea {
-    background: none;
-    border: 0;
-    color: $color-text-form;
-    font-size: 1em;
-    padding: $input-space-y $input-space-x;
-    transition: all .3s ease;
-    width: 100%;
+    @extend %input;
 
     &:-webkit-autofill,
     &:-webkit-autofill:hover,
@@ -152,5 +156,22 @@ $input-space-x: 13px;
   .txt {
     top: .9em;
     background: $bg-form-color;
+  }
+}
+
+.translucent-form {
+
+  input:not([type=radio]):not([type=checkbox]),
+  select,
+  textarea {
+    @extend %input;
+    border-radius: 4px;
+    background-color: rgba(213,213,213,0.149);
+    margin-bottom: 1rem;
+  }
+
+  textarea {
+    max-height: 200px;
+    min-height: 52px;
   }
 }
