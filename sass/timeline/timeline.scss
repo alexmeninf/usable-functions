@@ -1,0 +1,161 @@
+$primary: #b3b0e0;
+$dark-primary: #303f9f;
+$light-primary: #a872d4;
+$text: #ffffff;
+$primary-text: #212121;
+$secondary-text: #a872d4;
+$accent: #ff4081;
+
+:root {
+  --spacing-left: 70px;
+}
+
+.timeline {
+  position: relative;
+  overflow-x: hidden;
+  z-index: 0;
+}
+
+.timeline-item {
+  width: 100%;
+  margin-bottom: var(--spacing-left);
+  word-break: break-word;
+  position: relative;
+
+  &::before {
+    content: "";
+    background: $light-primary;
+    width: 5px;
+    height: calc(100% + var(--spacing-left));
+    position: absolute;
+    left: 30px;
+    transform: translateX(-50%);
+
+    @media (min-width: 768px) {
+      left: 50%;
+    }
+  }
+
+  &:last-child {
+    &::before {
+      height: 15%;
+    }
+  }
+
+  &:nth-child(even) {
+    .timeline-content {
+      float: right;
+
+      &::before {
+        content: "";
+        position: absolute;
+        border-style: solid;
+        width: 0;
+        height: 0;
+        top: 30px;
+        left: -15px;
+        border-width: 10px 15px 10px 0;
+        border-color: transparent #ceced266 transparent
+          transparent;
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+.timeline-content {
+  position: relative;
+  width: 45%;
+  float: left;
+  border-radius: 4px;
+  background-color: #e9e9e959;
+  border-radius: 18px;
+  box-shadow: 0 20px 25px -15px rgba(0, 0, 0, 0.3);
+
+  &::before {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    width: 0;
+    height: 0;
+    top: 30px;
+    right: -15px;
+    border-width: 10px 0 10px 15px;
+    border-color: transparent transparent transparent #ceced266;
+  }
+
+  h2 {
+    color: $text;
+  }
+}
+
+.timeline-img {
+  width: 30px;
+  height: 30px;
+  background: $primary;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  margin-top: 25px;
+  margin-left: -15px;
+}
+
+.timeline-card {
+  p {
+    padding: 0 20px;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  a {
+    margin-left: 20px;
+  }
+}
+
+
+blockquote {
+  margin-top: 30px;
+  color: $secondary-text;
+  border-left-color: $primary;
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .timeline {
+    .timeline-img {
+      left: 30px;
+    }
+
+    .timeline-content {
+      max-width: 100%;
+      width: auto;
+      margin-left: 50px;
+    }
+
+    .timeline-item {
+      &:nth-child(odd) {
+        .timeline-content {
+          &::before {
+            content: "";
+            position: absolute;
+            border-style: solid;
+            width: 0;
+            height: 0;
+            top: 30px;
+            left: -15px;
+            border-width: 10px 15px 10px 0;
+            border-color: transparent #ceced266 transparent transparent;
+          }
+        }
+      }
+    }
+  }
+}
