@@ -29,10 +29,9 @@ $margin-y-header: 5px;
 
   &.new-bg {
     background: rgba(12, 12, 12, 0.7);
-    box-shadow: 0 4px 15px rgba(#000, .15);
+    box-shadow: 0 4px 15px rgba(#000, .25);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.38);
 
     .img-brand {
 
