@@ -4,7 +4,7 @@
       drawerClose = '.close-menu',
       drawerClosed = 'drawerClosed',
       drawerOpen = 'drawerOpen',
-      listMenu = '.drawer-mobile ul',
+      listMenu = '.drawer-mobile .wrap',
       submenu = '.submenu',
       iconAnimate = 'rotateIcon';
 
