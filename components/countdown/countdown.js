@@ -7,8 +7,17 @@
   setInterval(function() {
     $('.countdown').each(function(){
 
-      let time       = $(this).data('time'),
-        countDown    = new Date(time).getTime(),
+      let time = $(this).data('time');
+
+      if (is_apple()) {
+        var dateParts = time.substring(0,10).split('-');
+        var timePart = time.substr(11);
+        time = dateParts[0] + '/' + dateParts[1] + '/' + dateParts[2] + ' ' + timePart; // Y/m/d
+  
+        $(this).attr('data-time', time);
+      }
+  
+      let countDown  = new Date(time).getTime(),
         now          = new Date().getTime(),
         distance     = countDown - now;
 
@@ -57,3 +66,16 @@
   }, 0);
 
 }());
+
+
+is_apple = () => {
+  const isIOS = /Mac|iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isMacOS = navigator.platform.indexOf('Mac') != -1;
+  const isSafari = navigator.platform.indexOf('Safari') != -1;
+
+  if (isIOS || isMacOS || isSafari) {
+    return true;
+  }
+
+  return false;
+}
