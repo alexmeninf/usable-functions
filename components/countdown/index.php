@@ -3,38 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-
-  <style>
-    .btn {
-      display: inline-block;
-      padding: 20px 10px;
-      border-radius: 12px;
-      color:#fff;
-      background-color: #222;
-      text-decoration: none;
-    }
-  </style>
+  <title>Contador</title>
 </head>
 <body>
-  
-<!--- mes-dia-ano hora:min:seg --->
-<div class="countdown spacing-section" 
-  data-time="10-29-2021 15:00:00">
-  <a href="" class="btn count-btn">
-    <span class="countdown-row">
-      <span class="years"></span>
-      <span class="days"></span>
-      <span class="hours"></span>
-      <span class="min"></span>
-      <span class="sec"></span>
-    </span><!-- /.countdown-row -->
-  </a>
-  <div class="info"></div>
-</div><!-- /.countdown	 -->
 
+  <!--
+    data-time : Sequencia da data: Y-m-d h:m:s
+    data-text : Mensagem exibida no fim do contador
+   -->
+  <div class="countdown" 
+  data-time="2021-01-07 22:22:30" 
+  data-text="Tempo esgotado!">
+    <div class="timer">
+      <span class="countdown-days"></span>
+      <span class="countdown-hours"></span>
+      <span class="countdown-minutes"></span>
+      <span class="countdown-seconds"></span>
+    </div>
+    <div class="countdown-info"></div>
+  </div>
 
-<script src="countdown.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+  <script src='countdown.js'></script>  
 </body>
 </html>
