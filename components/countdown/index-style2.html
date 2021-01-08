@@ -1,0 +1,78 @@
+<style>
+.countdown {
+  
+  .timer {
+    display: flex;
+  }
+
+  .count-btn {
+    text-align: center;
+
+    span {
+      display: block;
+    }
+
+    .text {
+      font-size: 19px;
+    }
+  
+    .value {
+      align-items: center;
+      background: #3c3c3c;
+      border-radius: 13px;
+      color: #fff;
+      display: flex;
+      font-size: 58px;
+      font-weight: 800;
+      height: 95px;
+      justify-content: center;
+      line-height: 1;
+      width: 100px;
+      padding-top: 12px;
+      position: relative;
+      overflow: hidden;
+
+      @include media(lg, max) {
+        font-size: 42px;
+        height: 80px;
+        width: 75px;
+      }
+
+      &:after {
+        content: '';
+        width: 100%;
+        height: 50%;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,.3);
+        position: absolute;
+      }
+    }
+  }
+}
+</style>
+
+
+<div class="countdown spacing-section mb-5 wow fadeInUp d-lg-none mx-auto" 
+data-time="2021-01-12 20:00:00" 
+data-text="Hora da Live!">
+  <span class="countdown-row timer justify-content-center">
+    <span class="count-btn countdown-days mr-2">
+      <span class="value"></span>
+      <span class="text">Dias</span>
+    </span>
+    <span class="count-btn countdown-hours mr-2">
+      <span class="value"></span>
+      <span class="text">Horas</span>
+    </span>
+    <span class="count-btn countdown-minutes mr-2">
+      <span class="value"></span>
+      <span class="text">Minutos</span>
+    </span>
+    <span class="count-btn countdown-seconds">
+      <span class="value"></span>
+      <span class="text">Segundos</span>
+    </span>
+  </span>
+  <div style="display:none" class="count-btn countdown-info"></div>
+</div>
