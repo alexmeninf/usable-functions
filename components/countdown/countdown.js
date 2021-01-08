@@ -1,31 +1,59 @@
 (function () {
   const second = 1000,
         minute = second * 60,
-        hour = minute * 60,
-        day = hour * 24;
+        hour   = minute * 60,
+        day    = hour * 24;
 
-  let birthday = $('#countdown').data('time'),
-      countDown = new Date(birthday).getTime(),
-      x = setInterval(function() { 
+  setInterval(function() {
+    $('.countdown').each(function(){
 
-        let now = new Date().getTime(),
-            distance = countDown - now;
+      let time       = $(this).data('time'),
+        countDown    = new Date(time).getTime(),
+        now          = new Date().getTime(),
+        distance     = countDown - now;
 
-        document.getElementById("countdown-days").innerText = Math.floor(distance / (day)) + " dias",
-        document.getElementById("countdown-hours").innerText = Math.floor((distance % (day)) / (hour)) + " h",
-        document.getElementById("countdown-minutes").innerText = Math.floor((distance % (hour)) / (minute)) + " min",
-        document.getElementById("countdown-seconds").innerText = Math.floor((distance % (minute)) / second) + " seg";
+      let days = Math.floor(distance / (day)),
+        hours    = Math.floor((distance % (day)) / (hour)),
+        minutes  = Math.floor((distance % (hour)) / (minute)),
+        seconds  = Math.floor((distance % (minute)) / second);
 
-        // do something later when date is reached
-        if (distance < 0) {
-          let information = document.getElementById("countdown-info"),
-              countdown = document.getElementById("timer");
+      if (days > 0) {
+        $(".countdown-days", $(this)).show();
+        $(".countdown-days", $(this)).html(days + (days == 1 ? ' dia' : ' dias'));
+      } else {
+        $(".countdown-days", $(this)).hide();
+      }
 
-          information.innerText =  $('#countdown').data('text');
-          countdown.style.display = "none";
+      if (hours > 0) {
+        $(".countdown-hours", $(this)).show();
+        $(".countdown-hours", $(this)).html(hours + (hours == 1 ? ' hora' : ' horas'));
+      } else {
+        $(".countdown-hours", $(this)).hide();
+      }
 
-          clearInterval(x);
-        }
-        //seconds
-      }, 0)
-  }());
+      if (minutes > 0) {
+        $(".countdown-minutes", $(this)).show();
+        $(".countdown-minutes", $(this)).html(minutes + (minutes == 1 ? ' minuto' : ' minutos'));
+      } else {
+        $(".countdown-minutes", $(this)).hide();
+      }
+
+      if (seconds > 0) {
+        $(".countdown-seconds", $(this)).show();
+        $(".countdown-seconds", $(this)).html(seconds + (seconds == 1 ? ' segundo' : ' segundos'));
+      } else {
+        $(".countdown-seconds", $(this)).hide();
+      }
+
+      // do something later when date is reached
+      if (distance < 0) {
+        let information = $(".countdown-info", $(this)),
+            timer       = $(".timer", $(this));
+
+        information.html($(this).data('text'));
+        timer.hide();
+      }
+    });   
+  }, 0);
+
+}());
