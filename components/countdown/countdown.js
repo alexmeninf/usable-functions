@@ -40,7 +40,7 @@
         $(".countdown-hours", $(this)).hide();
       }
 
-      if (minutes > 0) {
+      if (minutes > 0 || hours > 0) {
         $(".countdown-minutes", $(this)).show();
         $(".countdown-minutes", $(this)).html(minutes + (minutes == 1 ? ' minuto' : ' minutos'));
       } else {
