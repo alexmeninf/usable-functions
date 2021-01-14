@@ -13,3 +13,33 @@
       }
     });
   }
+  
+  // efeito de sumir o texto
+
+   transformText = () => {
+    let element = $('.offset-top'),
+      innerWindow = $(window).innerHeight();
+
+    element.each(function () {
+      let distance = $(this).offset().top,
+        itemAnimate = $(this);
+
+      innerWindow = $(window).innerHeight() <= 400 ? (innerWindow / 3) : (innerWindow / 1.1);
+
+      $(window).scroll(function () {
+        if ($(this).scrollTop() + innerWindow >= distance) {
+          itemAnimate.css({
+            transition: '.4s all',
+            transform: 'translateY(0)',
+            opacity: 1
+          });
+        } else {
+          itemAnimate.css({
+            transition: '.4s all',
+            transform: 'translateY(50px)',
+            opacity: 0
+          });
+        }
+      });
+    });
+  }
