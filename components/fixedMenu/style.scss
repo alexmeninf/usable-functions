@@ -2,10 +2,10 @@ $margin-y-header: 5px;
 
 .fixed-header {
   align-items: center;
-  background: -webkit-linear-gradient(to top, transparent, rgba(#000, .4));
-  background: -moz-linear-gradient(to top, transparent, rgba(#000, .4));
-  background: -o-linear-gradient(to top, transparent, rgba(#000, .4));
-  background: linear-gradient(to top, transparent, rgba(#000, .4));
+  background: -webkit-linear-gradient(to top, transparent, rgba(#000, 0.4));
+  background: -moz-linear-gradient(to top, transparent, rgba(#000, 0.4));
+  background: -o-linear-gradient(to top, transparent, rgba(#000, 0.4));
+  background: linear-gradient(to top, transparent, rgba(#000, 0.4));
   height: auto;
   left: 0;
   padding: 0 15px;
@@ -29,12 +29,11 @@ $margin-y-header: 5px;
 
   &.new-bg {
     background: rgba(12, 12, 12, 0.7);
-    box-shadow: 0 4px 15px rgba(#000, .25);
+    box-shadow: 0 4px 15px rgba(#000, 0.25);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
 
     .img-brand {
-
       img {
         height: 50px;
       }
@@ -64,7 +63,7 @@ $margin-y-header: 5px;
     background-color: rgba(53, 53, 53, 0.271);
     border-radius: 50%;
     border: none;
-    color: $color-light;
+    color: $white;
     display: flex;
     height: 45px;
     justify-content: center;
@@ -89,7 +88,7 @@ $margin-y-header: 5px;
         display: inline-block;
 
         a {
-          color: $color-light;
+          color: $white;
           display: block;
           padding: 10px;
           font-size: 15px;
@@ -100,8 +99,7 @@ $margin-y-header: 5px;
   }
 }
 
-@each $prefix,
-$breakpoint in $grid-breakpoints {
+@each $prefix, $breakpoint in $grid-breakpoints {
   .expand-#{$prefix} {
     @include media($breakpoint) {
       .btn-menu {
