@@ -1,0 +1,35 @@
+
+<style>
+  #overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    min-width: 100px;
+    min-height: 100px;
+  }
+</style>
+
+<script>
+  var offset = [0,0];
+var divOverlay = document.getElementById("overlay");
+var isDown = false;
+divOverlay.addEventListener('mousedown', function(e) {
+    isDown = true;
+    offset = [
+        divOverlay.offsetLeft - e.clientX,
+        divOverlay.offsetTop - e.clientY
+    ];
+}, true);
+document.addEventListener('mouseup', function() {
+    isDown = false;
+}, true);
+
+document.addEventListener('mousemove', function(e) {
+    event.preventDefault();
+    if (isDown) {
+        divOverlay.style.left = (e.clientX + offset[0]) + 'px';
+        divOverlay.style.top  = (e.clientY + offset[1]) + 'px';
+    }
+}, true);
+</script>
