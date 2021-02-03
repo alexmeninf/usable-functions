@@ -47,7 +47,7 @@
         $(".countdown-minutes", $(this)).hide();
       }
 
-      if (seconds > 0) {
+      if (seconds > 0 || minutes > 0) {
         $(".countdown-seconds", $(this)).show();
         $(".countdown-seconds", $(this)).html(seconds + (seconds == 1 ? ' segundo' : ' segundos'));
       } else {
