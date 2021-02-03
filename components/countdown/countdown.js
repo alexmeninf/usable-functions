@@ -33,21 +33,21 @@
         $(".countdown-days", $(this)).hide();
       }
 
-      if (hours > 0) {
+      if (hours != -1) {
         $(".countdown-hours", $(this)).show();
         $(".countdown-hours", $(this)).html(hours + (hours == 1 ? ' hora' : ' horas'));
       } else {
         $(".countdown-hours", $(this)).hide();
       }
 
-      if (minutes > 0 || hours > 0) {
+      if (minutes != -1) {
         $(".countdown-minutes", $(this)).show();
         $(".countdown-minutes", $(this)).html(minutes + (minutes == 1 ? ' minuto' : ' minutos'));
       } else {
         $(".countdown-minutes", $(this)).hide();
       }
 
-      if (seconds > 0 || minutes > 0) {
+      if (seconds != -1) {
         $(".countdown-seconds", $(this)).show();
         $(".countdown-seconds", $(this)).html(seconds + (seconds == 1 ? ' segundo' : ' segundos'));
       } else {
@@ -66,16 +66,3 @@
   }, 0);
 
 }());
-
-
-is_apple = () => {
-  const isIOS = /Mac|iPad|iPhone|iPod/.test(navigator.userAgent);
-  const isMacOS = navigator.platform.indexOf('Mac') != -1;
-  const isSafari = navigator.platform.indexOf('Safari') != -1;
-
-  if (isIOS || isMacOS || isSafari) {
-    return true;
-  }
-
-  return false;
-}
