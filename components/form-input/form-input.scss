@@ -1,5 +1,5 @@
 $bg-form-color: $bg-base; // Background
-$color-text-form: $color-base; // Cor do texto 
+$color-text-form: $color-base; // Cor do texto
 $color-focus-default: $color-default; // Cor destaque
 
 // Espaçamento
@@ -11,14 +11,12 @@ $input-space-x: 13px;
   border: 0;
   color: $color-text-form;
   font-size: 1em;
-  padding: $input-space-y $input-space-x;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   width: 100%;
 }
 
 .material-form {
-
-  input:not([type=radio]):not([type=checkbox]),
+  input:not([type="radio"]):not([type="checkbox"]),
   textarea {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -26,47 +24,49 @@ $input-space-x: 13px;
   }
 
   textarea {
-    max-height: 200px;
-    min-height: 52px;
+    max-height: 250px;
+    min-height: 63px;
   }
 
-  input:not([type=radio]):not([type=checkbox]),
+  input:not([type="radio"]):not([type="checkbox"]),
   select,
   textarea {
+    padding: ($input-space-y + 10px) $input-space-x $input-space-y;
     @extend %input;
 
+    // Autofill
     &:-webkit-autofill,
     &:-webkit-autofill:hover,
     &:-webkit-autofill:focus,
     &:-webkit-autofill:active {
-      -webkit-box-shadow: 0 0 0px 1000px $bg-form-color inset;
+      -webkit-box-shadow: 0 0 0px 1000px $bg-form-color inset !important;
+      -webkit-text-fill-color: $color-text-form !important;
     }
 
-    &:hover {
-      transition: all .3s;
+    // Placeholder
+    @include input-placeholder {
+      color: $color-text-form;
     }
 
     &:not(:placeholder-shown) {
-      +span {
+      + span {
         color: $color-focus-default;
-        transform: translateY(-26px) scale(.78);
+        transform: translateY(-11px) scale(0.66);
       }
     }
 
     &:focus {
-      // background: none;
       outline: none;
 
-      +span {
+      + span {
         color: $color-focus-default;
-        transform: translateY(-26px) scale(.78);
+        transform: translateY(-11px) scale(0.66);
       }
     }
   }
 
   .form-group {
     position: relative;
-    margin-top: 1rem;
     margin-bottom: 1rem;
     width: 100%;
   }
@@ -77,33 +77,30 @@ $input-space-x: 13px;
     font-size: 1em;
     font-weight: 500;
     left: $input-space-x;
-    position: absolute;
-    top: 16px;
-    transform-origin: 0 0;
-    transition: all .2s ease;
     padding-left: 5px;
-    user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
+    pointer-events: none;
+    position: absolute;
+    top: 19px;
+    transform-origin: 0 0;
+    transition: all 0.2s ease;
+    @include user-select(none);
   }
 
   .bar {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    height: 2px;
     background: $color-focus-default;
+    bottom: 0;
+    height: 2px;
+    left: 0;
+    position: absolute;
     transform-origin: 0 0;
     transform: scaleX(0);
-    transition: all .4s ease;
+    transition: all 0.4s ease;
+    width: 100%;
   }
 }
 
 .standard-basic {
-
-  input:not([type=radio]):not([type=checkbox]),
+  input:not([type="radio"]):not([type="checkbox"]),
   select,
   textarea {
     background-color: rgba(213, 213, 213, 0.149);
@@ -115,8 +112,8 @@ $input-space-x: 13px;
     }
 
     &:focus {
-      +span {
-        +.bar {
+      + span {
+        + .bar {
           transform: scaleX(1);
         }
       }
@@ -133,8 +130,7 @@ $input-space-x: 13px;
 }
 
 .outlined-basic {
-
-  input:not([type=radio]):not([type=checkbox]),
+  input:not([type="radio"]):not([type="checkbox"]),
   select,
   textarea {
     border: 1px solid $border-color;
@@ -144,30 +140,27 @@ $input-space-x: 13px;
     &:focus {
       border-color: $color-focus-default;
     }
-
-    &:not(:placeholder-shown),
-    &:focus {
-      +span {
-        transform: translate(0, -26px) scale(0.75);
-      }
-    }
   }
 
   .txt {
-    top: .9em;
+    top: 0.9em;
     background: $bg-form-color;
   }
 }
 
 .translucent-form {
-
-  input:not([type=radio]):not([type=checkbox]),
+  input:not([type="radio"]):not([type="checkbox"]),
   select,
   textarea {
     @extend %input;
     border-radius: 4px;
-    background-color: rgba(213,213,213,0.149);
+    background-color: rgba(213, 213, 213, 0.149);
     margin-bottom: 1rem;
+    padding: $input-space-y $input-space-x;
+
+    @include input-placeholder {
+      color: $color-text-form;
+    }
   }
 
   textarea {
