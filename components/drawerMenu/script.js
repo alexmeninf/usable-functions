@@ -39,7 +39,7 @@
     });
 
     // close and open submenu
-    $(listMenu + '> li > a,' + drawerClose).click(function () {
+    $(listMenu + " ul > li > a," + drawerClose).click(function () {
       let parentLi = $(this).parent('li');
       let hasSubmenu = $(this).parents('li');
 
