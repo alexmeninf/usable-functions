@@ -1,0 +1,164 @@
+<style>
+  // SASS
+
+  .video-section {
+  background-color: $white;
+  min-height: 160vh;
+  padding-top: 50px;
+  position: relative;
+
+  .gradient {
+    bottom: auto;
+    height: 300px;
+    left: 0%;
+    position: absolute;
+    right: 0%;
+    top: -300px;
+    z-index: 1;
+    background-image: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(transparent),
+      to($white)
+    );
+    background-image: linear-gradient(180deg, transparent, $white);
+  }
+
+  .wrap-sticky {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    overflow: hidden;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+
+  .w-bg-media {
+    border-radius: 40px;
+    height: 80vh;
+    inset: unset !important;
+    overflow: hidden;
+    position: relative !important;
+    width: 80vw;
+
+    > video,
+    > img {
+      background-position: 50% 50%;
+      background-size: cover;
+      bottom: -100%;
+      left: -100%;
+      margin: auto;
+      min-height: 100%;
+      min-width: 100%;
+      position: absolute;
+      right: -100%;
+      top: -100%;
+      z-index: -100;
+    }
+  }
+
+  .wrap-content {
+    background: linear-gradient(to top, $white, transparent);
+    color: $black;
+    height: 60vh;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+  }
+
+  // Magic scroll
+  .scrollmagic-pin-spacer {
+    width: auto !important;
+    height: auto !important;
+  }
+}
+
+// Efeito 3 Magic Scroll
+.magicFadeUp {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition: all 0.6s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+</style>
+
+
+<section class="video-section" id="wrapVideo">
+  <div class="gradient"></div>
+
+  <div class="wrap-sticky">
+    <div class="w-bg-media" id="video-zoom">
+      <img src="http://kichererbse-bonn.de/wp-content/uploads/2018/02/cropped-Fotolia_145209083_Subscription_Monthly_M.jpg" alt="">
+    </div>
+  </div>
+
+  <div class="wrap-content p-4" id="wrap-effect">
+    <div class="container">
+      <h1 class="headline-5 mb-4 magicFadeUp">Título</h1>
+      <p class="magicFadeUp">Conteudo.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+	$(function() {
+		// init controller
+		var controller = new ScrollMagic.Controller();
+		let sizeViewportVH = controller.info('size');
+		let sizeViewport = controller.info('size') / 2;
+
+		// Efeito 1
+		var tween2 = TweenMax.to("#title-1", 1, {
+			translateY: '900%',
+			opacity: 0,
+			ease: Linear.easeNone
+		});
+		new ScrollMagic.Scene({
+			triggerElement: '#wrapTitle1',
+			duration: sizeViewportVH,
+			offset: sizeViewport,
+		}).setTween(tween2).setPin("#title-1", {
+			pushFollowers: false
+		}).addTo(controller);
+
+
+		// Efeito 2
+		var tween = TweenMax.to("#video-zoom", 1, {
+			width: '100vw',
+			height: '100vh',
+			opacity: 0.8,
+			borderRadius: 0,
+			filter: 'blur(7px)',
+			ease: Linear.easeNone
+		});
+		new ScrollMagic.Scene({
+			triggerElement: "#wrapVideo",
+			duration: sizeViewport,
+			offset: 20,
+		}).setTween(tween).setPin("#video-zoom", {
+			pushFollowers: false
+		}).addTo(controller);
+
+		// efeito 3
+		var revealElements = document.getElementsByClassName("magicFadeUp");
+		for (var i = 0; i < revealElements.length; i++) { // create a scene for each element
+			new ScrollMagic.Scene({
+					triggerElement: revealElements[i], // y value not modified, so we can use element as trigger as well
+					offset: 70, // start a little later
+					triggerHook: 0.9,
+				})
+				.setClassToggle(revealElements[i], "visible") // add class toggle
+				.addTo(controller);
+		}
+
+	});
+</script>
