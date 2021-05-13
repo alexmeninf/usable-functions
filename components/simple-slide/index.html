@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+  
+  <style>
+  // CUSTOM SLIDE
+.slide-fadeIn {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+
+  #image-container {
+    text-align: center;
+
+    img {
+      animation: p-10-image-animation 1.5s;
+      height: auto;
+      max-width: 100%;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  .slide-navigation {
+    margin-top: -1rem;
+    display: flex;
+    justify-content: center;
+
+    @include media(md) {
+      .btn-prev {
+        left: -52px;
+      }
+
+      .btn-next {
+        right: -52px;
+      }
+    }
+  }
+
+  .btn-prev,
+  .btn-next {
+    align-items: center;
+    background-color: #141313a3;
+    border-radius: 50%;
+    display: flex;
+    border: none;
+    color: rgba(255, 255, 255, 0.741) !important;
+    cursor: pointer;
+    height: 52px;
+    user-select: none;
+    justify-content: center;
+    margin: 0 15px;
+    width: 52px;
+
+    &:hover {
+      background-color: #464646c2;
+    }
+
+    @include media(md) {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      &:active {
+        transform: translateY(-50%) scale(0.85);
+      }
+    }
+
+    img {
+      width: auto;
+      max-height: 25px;
+    }
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+}
+
+@keyframes p-10-image-animation {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>
+</head>
+<body>
+  
+  <div class="slide-fadeIn">
+    <div id="image-container">
+      <img src="https://via.placeholder.com/500x300" alt="slide">
+    </div>
+
+    <div class="slide-navigation">
+      <button type="button" aria-label="Slide button" id="prev-btn" class="btn-prev">
+        <img class="lazy" data-src="assets/img/left-arrow.png" alt="Icon Left">
+      </button>
+      <button type="button" aria-label="Slide button" id="next-btn" class="btn-next">
+        <img class="lazy" data-src="assets/img/right-arrow.png" alt="Icon Right">
+      </button>
+    </div>
+  </div><!-- /.slide-fadeIn -->
+  
+  <script>
+    // CUSTOM SLIDE
+  // Declaring variable array of images. You can put as many as you want.
+  const myimages = [
+    'https://via.placeholder.com/500x300',
+    'https://via.placeholder.com/500x300',
+    'https://via.placeholder.com/500x300',
+  ];
+
+  let urlroot = $('meta[name=url]').attr('content');
+  const prevBtn = document.getElementById("prev-btn");  // assigning variable for previous button
+  const nextBtn = document.getElementById("next-btn");  // assigning variable for next button
+  const imageContainer = document.getElementById("image-container"); // assigning variable for image container div
+  var myimage = "https://via.placeholder.com/500x300"; // Assigning initial value for the varibale to show on page loading
+
+  var counter = 0;
+  prevBtn.addEventListener("click", function () {
+    if (counter > 0 && counter < myimages.length) {
+      counter--;
+      myimage = myimages[counter];
+      imageContainer.innerHTML = '<img src="' + urlroot + '/assets/img/camisas/' + myimage + '" />';
+      prevBtn.classList.remove("disabled");
+      nextBtn.classList.remove("disabled");
+    } else {
+      prevBtn.classList.add("disabled");
+    }
+  });
+
+  nextBtn.addEventListener("click", function () {
+    if (counter < myimages.length - 1) {
+      counter++;
+      myimage = myimages[counter];
+      imageContainer.innerHTML = '<img src="' + urlroot + '/assets/img/camisas/' + myimage + '" />';
+      
+      nextBtn.classList.remove("disabled");
+      prevBtn.classList.remove("disabled");
+    } else {
+      nextBtn.classList.add("disabled");
+    }
+  });
+  </script>
+	
+</body>
+</html>
