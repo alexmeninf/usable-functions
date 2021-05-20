@@ -1,0 +1,133 @@
+/*
+ * Passo a passo da compra
+ * @version 1.0
+ * @author Alexandre Menin
+ * 
+ */
+$color-step: $gray-500;
+$color-step-finished: #7cb342;
+
+.purchase-steps {
+  border-bottom: 1px solid $gray-400;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+  padding-bottom: 50px;
+
+  li {
+    align-items: center;
+    display: flex;
+    opacity: 0.8;
+    padding: 0.6em 2em;
+    position: relative;
+    text-align: center;
+
+    @include media(md) {
+      padding: 0.6em 4.2em;
+    }
+
+    &:after {
+      background-color: $color-step;
+      content: "";
+      height: 2px;
+      left: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      z-index: 0;
+    }
+
+    // Página com processo finalizado
+    &.active {
+      opacity: 1;
+
+      &:after {
+        background-color: $color-step-finished;
+      }
+
+      .icon {
+        color: $color-step-finished;
+      }
+
+      span {
+        color: $gray-800;
+      }
+
+      .finished {
+        display: block;
+      }
+    }
+  }
+
+  // Icone de processo finalizado
+  .finished {
+    background: $white;
+    border-radius: 50%;
+    color: saturate(darken($color-step-finished, 12%), 10%);
+    display: none;
+    font-size: 21px;
+    left: 21px;
+    padding: 3px;
+    position: absolute;
+    top: -2px;
+    z-index: 2;
+
+    @include media(md) {
+      left: 54px;
+      top: 0;
+      font-size: 27px;
+      padding: 5px;
+      transform: unset;
+    }
+  }
+
+  .wrap {
+    align-items: center;
+    background: #f3f3f3;
+    border-radius: 13px;
+    display: flex;
+    flex-direction: column;
+    flex-direction: row;
+    padding: 15px 13px;
+    padding: 15px;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: map-get($grid-breakpoints, xl )-1) and (min-width: map-get($grid-breakpoints, md )) {
+      min-height: 122px;
+    }
+  }
+
+  // Icone central
+  .icon {
+    color: $color-step;
+    font-size: 28px;
+    margin: 0;
+    opacity: 0.8;
+
+    @include media(md) {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+  }
+
+  // Título
+  span {
+    color: $color-step;
+    display: none;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    user-select: none;
+
+    @include media(md) {
+      font-size: 17px;
+      display: block;
+    }
+
+    @include media(xl) {
+      font-size: 19px;
+    }
+  }
+}
