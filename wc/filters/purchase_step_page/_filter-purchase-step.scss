@@ -6,6 +6,7 @@
  */
 $color-step: $gray-500;
 $color-step-finished: #7cb342;
+$color-step-current: #f0b549;
 
 .purchase-steps {
   border-bottom: 1px solid $gray-400;
@@ -39,7 +40,7 @@ $color-step-finished: #7cb342;
     }
 
     // Página com processo finalizado
-    &.active {
+    &.finished {
       opacity: 1;
 
       &:after {
@@ -54,14 +55,32 @@ $color-step-finished: #7cb342;
         color: $gray-800;
       }
 
-      .finished {
+      .icon-finished {
         display: block;
+      }
+    }
+
+    // Pagina atual
+    &.current {
+      opacity: 1;
+
+      &:after {
+        background-color: $color-step-current;
+      }
+
+      .wrap {
+        background-color: $color-step-current;
+      }
+
+      .icon, 
+      span {
+        color: $white;
       }
     }
   }
 
   // Icone de processo finalizado
-  .finished {
+  .icon-finished {
     background: $white;
     border-radius: 50%;
     color: saturate(darken($color-step-finished, 12%), 10%);
@@ -85,7 +104,6 @@ $color-step-finished: #7cb342;
   .wrap {
     align-items: center;
     background: #f3f3f3;
-    border-radius: 13px;
     display: flex;
     flex-direction: column;
     padding: 15px 13px;
