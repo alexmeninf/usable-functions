@@ -71,7 +71,7 @@ function menu_hierarchical( $taxonomies ) {
     }
   }
 
-  $html .= '</ul> <--- /Main ul --->';
+  $html .= '</ul> <!--- end ul --->';
 
   echo $html;
 }
