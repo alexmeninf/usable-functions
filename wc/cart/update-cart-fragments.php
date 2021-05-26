@@ -1,21 +1,26 @@
 <?php
+/**
+ * 
+ * Update cart fragments
+ * Version 1.0
+ * 
+ */
 
-// update cart fragments
-function meu_tema_add_to_cart_fragment( $fragments ) {
+function meu_tema_add_to_cart_fragment( $fragments ) { 
+  ob_start(); ?>
+
+  <span class="cart_contents_count"><?= WC()->cart->cart_contents_count ?></span>
+  
+  <?php 
+  $fragments['.cart_contents_count'] = ob_get_clean();
+
   ob_start();
 
-  // content of cart
-  get_template_part('inc/cart-content');
+  // ATENÇÃO: Para ativar esta função, lembre de criar o diretório abaixo e o template
+  get_template_part('template-parts/cart/cart-content');
 
   $fragments['.cart-fragments'] = ob_get_clean();
   return $fragments;
 }
+
 add_filter( 'woocommerce_add_to_cart_fragments', 'meu_tema_add_to_cart_fragment' );
-
-
-function mode_theme_update_mini_cart() {
-  get_template_part('inc/header/cart-content');
-  die();
-}
-add_filter( 'wp_ajax_nopriv_mode_theme_update_mini_cart', 'mode_theme_update_mini_cart' );
-add_filter( 'wp_ajax_mode_theme_update_mini_cart', 'mode_theme_update_mini_cart' );
