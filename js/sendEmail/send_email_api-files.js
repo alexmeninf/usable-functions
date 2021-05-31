@@ -94,7 +94,7 @@ $('#NAME_HERE').on('submit', function () {
 		myData.append('files[]', file, file.name);
 
 		$.ajax({
-			url: 'https://mailsender.dvulgsolucoes.com.br/api/email/send',
+			url: '',
 			method: 'POST',
 			processData: false,
 			contentType: false,
