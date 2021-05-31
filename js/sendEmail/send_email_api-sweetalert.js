@@ -100,11 +100,11 @@
       </html>`;
 
         $.ajax({
-          url: 'https://mailsender.dvulgsolucoes.com.br/api/email/send',
+          url: '',
           method: 'POST',
           data: {
             request: siteName,
-            from: 'alex.menin11@gmail.com',
+            from: '',
             to: email,
             subject: subject ? subject : 'Dados recebidos do site ' + siteName,
             message: content,
