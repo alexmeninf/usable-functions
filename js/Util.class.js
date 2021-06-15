@@ -32,21 +32,23 @@ is_mobile = () => {
  * @param breakpoint  Resolution at which the breakpoint happens
  */
 autoHeight = (selectorItem, breakpoint) => {
-  let proposalHeight = 0;
-  let top_of_element = $(selectorItem).offset().top;
-  let bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+  if ($(selectorItem).length) {
+    let proposalHeight = 0;
+    let top_of_element = $(selectorItem).offset().top;
+    let bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
 
-  if ((bottom_of_screen > top_of_element)) {
-    $(selectorItem).each(function () {
-      if ($(this).innerHeight() > proposalHeight) {
-        proposalHeight = $(this).innerHeight();
+    if ((bottom_of_screen > top_of_element)) {
+      $(selectorItem).each(function () {
+        if ($(this).innerHeight() > proposalHeight) {
+          proposalHeight = $(this).innerHeight();
+        }
+      });
+
+      if ($(document).innerWidth() >= breakpoint) {
+        $(selectorItem).css("min-height", proposalHeight + "px");
+      } else {
+        $(selectorItem).css("min-height", "auto");
       }
-    });
-
-    if ($(document).innerWidth() >= breakpoint) {
-      $(selectorItem).css("min-height", proposalHeight + "px");
-    } else {
-      $(selectorItem).css("min-height", "auto");
     }
   }
 };
