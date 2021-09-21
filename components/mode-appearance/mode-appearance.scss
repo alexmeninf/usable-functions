@@ -1,0 +1,121 @@
+/**
+  Switch dark mode
+*/
+.color-scheme-toggle {
+  --toggle-border-radius-outer: 12px;
+  --toggle-border-radius-inner: 10px;
+  --toggle-color-fill: var(--color-button-background);
+  --toggle-color-text: var(--color-figure-blue);
+  border-radius: var(--toggle-border-radius-outer);
+  border: 1px solid var(--toggle-color-fill);
+  display: inline-flex;
+  font-size: 0.70588rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.33337;
+  padding: 1px;
+
+  input {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    -webkit-clip-path: inset(0 0 99.9% 99.9%);
+    clip-path: inset(0 0 99.9% 99.9%);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    padding: 0;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:checked + .text {
+      --toggle-color-text: var(--color-button-text);
+      background: var(--toggle-color-fill);
+      border-color: var(--toggle-color-fill);
+    }
+
+    &:focus {
+      outline: 4px solid var(--color-focus-color);
+      outline-offset: 1px;
+    }
+  }
+
+  .text {
+    border: 1px solid transparent;
+    border-radius: var(--toggle-border-radius-inner);
+    color: var(--toggle-color-text);
+    display: inline-block;
+    text-align: center;
+    padding: 1px 6px;
+    min-width: 42px;
+    box-sizing: border-box;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen {
+  [data-color-scheme="dark"] .color-scheme-toggle {
+    --toggle-color-text: var(--color-figure-blue);
+  }
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  [data-color-scheme="auto"] .color-scheme-toggle {
+    --toggle-color-text: var(--color-figure-blue);
+  }
+}
+
+/**
+  *
+  * Por padrão, a sequência de escrita do estilo deve ser:
+  * classes CSS normal, [data-color-scheme="dark"] e prefers-color-scheme
+  *
+  */
+body {
+  color-scheme: light dark;
+}
+
+body[data-color-scheme="light"] {
+  color-scheme: light;
+}
+
+body[data-color-scheme="dark"] {
+  color-scheme: dark;
+}
+
+/** Default values */
+body {
+  --color-fill-bg: #fff;
+  --color-txt: #000;
+  --color-figure-blue: #06c;
+  --color-button-text: #fff;
+  --color-button-background: var(--color-figure-blue);
+}
+
+/* mode dark */
+@media screen {
+  body[data-color-scheme="dark"] {
+    --color-fill-bg: #000;
+    --color-txt: #fff;
+    --color-figure-blue: #2997ff;
+  }
+}
+
+/* mode auto */
+@media screen and (prefers-color-scheme: dark) {
+  body[data-color-scheme="auto"] {
+    --color-fill-bg: #000;
+    --color-txt: #fff;
+    --color-figure-blue: #2997ff;
+  }
+}
+
+/** Setar as cores */
+body {
+  background-color: var(--color-fill-bg) !important;
+  color: var(--color-txt) !important;
+}
