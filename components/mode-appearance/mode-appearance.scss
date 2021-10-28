@@ -1,3 +1,7 @@
+// @import "../../../../wp-starter-theme/assets/plugins/bootstrap/sass/functions";
+// @import "../../../../wp-starter-theme/assets/plugins/bootstrap/sass/variables";
+// @import 'variables';
+
 /**
   Switch dark mode
 */
@@ -5,7 +9,7 @@
   --toggle-border-radius-outer: 12px;
   --toggle-border-radius-inner: 10px;
   --toggle-color-fill: var(--color-button-background);
-  --toggle-color-text: var(--color-figure-blue);
+  --toggle-color-text: var(--color-theme);
   border-radius: var(--toggle-border-radius-outer);
   border: 1px solid var(--toggle-color-fill);
   display: inline-flex;
@@ -59,13 +63,13 @@
 
 @media screen {
   [data-color-scheme="dark"] .color-scheme-toggle {
-    --toggle-color-text: var(--color-figure-blue);
+    --toggle-color-text: var(--color-theme);
   }
 }
 
 @media screen and (prefers-color-scheme: dark) {
   [data-color-scheme="auto"] .color-scheme-toggle {
-    --toggle-color-text: var(--color-figure-blue);
+    --toggle-color-text: var(--color-theme);
   }
 }
 
@@ -87,35 +91,85 @@ body[data-color-scheme="dark"] {
   color-scheme: dark;
 }
 
-/** Default values */
-body {
-  --color-fill-bg: #fff;
-  --color-txt: #000;
-  --color-figure-blue: #06c;
-  --color-button-text: #fff;
-  --color-button-background: var(--color-figure-blue);
-}
 
-/* mode dark */
+/**
+ *
+ * Modo dark
+ *
+ * Tanto para color-scheme dark e auto, as variáveis
+ * possuem o mesmos valores.
+ *
+ */
+
 @media screen {
   body[data-color-scheme="dark"] {
-    --color-fill-bg: #000;
-    --color-txt: #fff;
-    --color-figure-blue: #2997ff;
+    // Cores base
+    --color-fill: #{$black};
+    --color-fill-secondary: #747474;
+    --color-fill-tertiary: #2d2d2d;
+    --color-fill-fourth: #1d1d1f;    
+    --color-theme: #{lighten($color-default, 18%)};
+    --color-theme-ligthen: #{lighten(saturate($color-default, 3%), 25%)};
+    --color-theme-darken: #{darken($color-default, 8%)};
+    // Bordas
+    --color-border-color: #404040;
+    // Texto
+    --color-txt: #ccc;
+    --color-txt-contrast: #8f9197;
+    // Titulo
+    --color-headline: #{$white};
+    // Botão
+    --color-button-background: var(--color-theme);
+    --color-button-text: #{$white};
+    --color-button-background-hover: var(--color-theme-ligthen);
+    --color-button-text-hover: #{$white};
+    // Input
+    --color-input-txt: var(--color-txt);
+    --color-input-border-color: #3b3b3b;
+    // Navigation
+    --color-nav-fill: var(--color-fill-fourth);
+    // Sidebar
+    --color-fill-sidebar: #0d0e10;
+    --color-fill-sidebar-border-color: var(--color-fill-sidebar);
+    --color-fill-sidebar-input: var(--color-fill-fourth);
+    // Footer
+    --color-fill-footer: var(--color-fill-fourth);
   }
 }
 
 /* mode auto */
 @media screen and (prefers-color-scheme: dark) {
   body[data-color-scheme="auto"] {
-    --color-fill-bg: #000;
-    --color-txt: #fff;
-    --color-figure-blue: #2997ff;
+    // Cores base
+    --color-fill: #{$black};
+    --color-fill-secondary: #747474;
+    --color-fill-tertiary: #2d2d2d;
+    --color-fill-fourth: #1d1d1f;    
+    --color-theme: #{lighten($color-default, 18%)};
+    --color-theme-ligthen: #{lighten(saturate($color-default, 3%), 25%)};
+    --color-theme-darken: #{darken($color-default, 8%)};
+    // Bordas
+    --color-border-color: #404040;
+    // Texto
+    --color-txt: #ccc;
+    --color-txt-contrast: #8f9197;
+    // Titulo
+    --color-headline: #{$white};
+    // Botão
+    --color-button-background: var(--color-theme);
+    --color-button-text: #{$white};
+    --color-button-background-hover: var(--color-theme-ligthen);
+    --color-button-text-hover: #{$white};
+    // Input
+    --color-input-txt: var(--color-txt);
+    --color-input-border-color: #3b3b3b;
+    // Navigation
+    --color-nav-fill: var(--color-fill-fourth);
+    // Sidebar
+    --color-fill-sidebar: #0d0e10;
+    --color-fill-sidebar-border-color: var(--color-fill-sidebar);
+    --color-fill-sidebar-input: var(--color-fill-fourth);
+    // Footer
+    --color-fill-footer: var(--color-fill-fourth);
   }
-}
-
-/** Setar as cores */
-body {
-  background-color: var(--color-fill-bg) !important;
-  color: var(--color-txt) !important;
 }
