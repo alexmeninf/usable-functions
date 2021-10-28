@@ -1,4 +1,11 @@
-<?php
+<?php 
+
+if ( ! defined( 'ABSPATH' ) ) 
+	exit;
+
+
+if ( ENABLE_COLOR_SCHEME_MODE === false )
+  return;
 
 /** 
  * Carregar stylesheet
@@ -42,30 +49,8 @@ add_action('wp_head', 'head_color_scheme', 1);
 
 function footer_color_scheme()
 { ?>
-
-  <form 
-    id="modeApparence" 
-    aria-label="<?php _e('Selecione uma preferência de cores', 'menin') ?>" 
-    role="radiogroup" 
-    tabindex="0" 
-    class="color-scheme-toggle">
-    <label>
-      <input name="mode" type="radio" value="light">
-      <div class="text">Light</div>
-    </label>
-    <label>
-      <input name="mode" type="radio" value="dark">
-      <div class="text">Dark</div>
-    </label>
-    <label>
-      <input name="mode" type="radio" value="auto" checked>
-      <div class="text">Auto</div>
-    </label>
-  </form>
-
-
   <script>
-    const toggleColourModeBtn = document.getElementById("modeApparence");
+    const toggleColourModeBtn = document.getElementById("modeAppearance");
     const currentColourMode = localStorage.getItem("colourMode");
     const sysIsDark = window.matchMedia("(prefers-color-scheme: dark)").matches; // Verifica se o SO está escuro
     const sysIsLight = window.matchMedia("(prefers-color-scheme: light)").matches; // Verifica se o SO está claro
@@ -78,12 +63,31 @@ function footer_color_scheme()
       setAndSaveColourMode();
     });
 
+    function getMode() {
+      return document.body.getAttribute('data-color-scheme');
+    }
+    
+    function setMode(value) {
+      document.body.setAttribute('data-color-scheme', value);
+    }
+
+    /**
+     * Verifica se o tema está escuro
+     */
+    function isDark() {
+      const hasSysDarkClass = getMode() == 'auto';
+      const currentSysIsDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const isDark = (hasSysDarkClass && currentSysIsDark) || getMode() == 'dark';
+
+      return isDark;
+    }
+
     /**
      * Mudar o modo da aparencia pelo valor salvo no navegador
      */
     function getSavedColourMode(savedMode) {
       if (localStorage.getItem("overRideSysColour") == "true") {
-        document.body.setAttribute('data-color-scheme', savedMode);
+        setMode(savedMode);
       }
     }
 
@@ -95,18 +99,17 @@ function footer_color_scheme()
 
       for (i = 0; i < ele.length; i++) {
         if (ele[i].checked)
-          document.body.setAttribute('data-color-scheme', ele[i].value);
+          setMode(ele[i].value);
       }
     }
 
     /**
-     * Salvar no localStorage e alterar botão
+     * Salvar no localStorage e alterar layout
      */
     function setAndSaveColourMode() {
       let colourMode;
-      const mode = document.body.getAttribute('data-color-scheme');
 
-      switch (mode) {
+      switch (getMode()) {
         case 'dark':
           colourMode = "dark";
           break;
@@ -127,12 +130,10 @@ function footer_color_scheme()
      */
     function toggleCheckedMode() {
       let ele = document.getElementsByName('mode');
-      const mode = document.body.getAttribute('data-color-scheme');
 
       for (i = 0; i < ele.length; i++) {
-        if (ele[i].value == mode) {
+        if (ele[i].value == getMode()) {
           ele[i].checked = true;
-
         } else {
           if (ele[i].hasAttribute('checked')) {
             ele[i].removeAttribute('checked');
@@ -141,8 +142,41 @@ function footer_color_scheme()
       }
     }
   </script>
-
 <?php
 }
 
-add_action('wp_footer', 'footer_color_scheme', 100);
+add_action('wp_footer', 'footer_color_scheme');
+
+
+
+/**
+ * 
+ * Criar shortcode do switch
+ * 
+ */
+
+function callback_template_scheme()
+{ ?>
+  <form 
+    id="modeAppearance" 
+    aria-label="<?php _e('Selecione a aparência do site', 'menin') ?>" 
+    role="radiogroup" 
+    tabindex="0" 
+    class="color-scheme-toggle">
+    <label>
+      <input name="mode" type="radio" value="light">
+      <div class="text"><?php _e('Clara', 'menin') ?></div>
+    </label>
+    <label>
+      <input name="mode" type="radio" value="dark">
+      <div class="text"><?php _e('Escura', 'menin') ?></div>
+    </label>
+    <label>
+      <input name="mode" type="radio" value="auto" checked>
+      <div class="text">Auto</div>
+    </label>
+  </form>
+<?php
+}
+
+add_shortcode('color_scheme_toggle', 'callback_template_scheme');
