@@ -1,20 +1,24 @@
-headerFix = () => {
-  let fixColor = "new-bg",
-    $header = $(".fixed-header");
+fixedMenu = () => {
+    let header = $(".fixed-header"), offset = $(window).height(), lastScrollTop = 0;
+  
+    function checkHeader() {
+      let st = $(this).scrollTop();
 
-  function checkHeader() {
-    if ($(this).scrollTop() > 100) {
-      $header.addClass(fixColor + " wow fadeInDown animated");
-    } else {
-      $header.removeClass(fixColor + " wow fadeInDown animated");
+      if (st > lastScrollTop) {
+        if (st > offset) {
+          header.addClass('hide');
+        }
+      } else {
+        header.removeClass('hide');
+      }
+      lastScrollTop = st;
     }
+  
+    $(window).ready(function () {
+      checkHeader();
+    });
+  
+    $(window).scroll(function () {
+      checkHeader();
+    });
   }
-
-  $(window).ready(function () {
-    checkHeader();
-  });
-
-  $(window).scroll(function () {
-    checkHeader();
-  });
-}
