@@ -1,24 +1,26 @@
 $margin-y-header: 5px;
 
 .fixed-header {
+  --tw-backdrop-blur: blur(40px);
+  background: rgba(255, 255, 255, 0.702);
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
   align-items: center;
-  background: -webkit-linear-gradient(to top, transparent, rgba(#000, 0.4));
-  background: -moz-linear-gradient(to top, transparent, rgba(#000, 0.4));
-  background: -o-linear-gradient(to top, transparent, rgba(#000, 0.4));
-  background: linear-gradient(to top, transparent, rgba(#000, 0.4));
   height: auto;
   left: 0;
-  padding: 0 15px;
+  padding: 0.6rem 15px;
   position: fixed;
   right: 0;
   top: 0;
   width: 100%;
   z-index: 1000;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   @extend %transition;
+
+  &.hide {
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+  }
 
   .wrap {
     display: flex;
@@ -29,17 +31,6 @@ $margin-y-header: 5px;
   }
 
   &.new-bg {
-    background: rgba(12, 12, 12, 0.7);
-    box-shadow: 0 4px 15px rgba(#000, 0.25);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-
-    .img-brand {
-      img {
-        height: 50px;
-      }
-    }
-
     .btn-menu {
       background-color: rgba(0, 0, 0, 0.2);
 
@@ -54,14 +45,17 @@ $margin-y-header: 5px;
     margin: $margin-y-header 0;
 
     img {
-      height: 60px;
-      @extend %transition;
+      height: 50px;
+      
+      @include media(md, max) {
+        height: 42px;
+      }
     }
   }
 
   .btn-menu {
     align-items: center;
-    background-color: rgba(53, 53, 53, 0.271);
+    background-color: rgba(0, 0, 0, 0.471);
     border-radius: 50%;
     border: none;
     color: $white;
@@ -74,7 +68,7 @@ $margin-y-header: 5px;
     width: 45px;
 
     &:hover {
-      background-color: rgba(28, 27, 27, 0.15);
+      background-color: rgba(19, 20, 19, 0.267);
     }
   }
 
@@ -92,7 +86,7 @@ $margin-y-header: 5px;
           color: $white;
           display: block;
           padding: 10px;
-          font-size: 15px;
+          font-size: 14px;
           text-decoration: none;
         }
       }
