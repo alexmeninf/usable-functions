@@ -73,7 +73,8 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2) {
     $url = get_year_link(get_the_time('Y'));
 
   } elseif (is_author()) {
-    $url = get_author_posts_url(get_queried_object()->term_id);
+    $author_id = get_the_author_meta( 'ID' );
+    $url    = get_author_posts_url( $author_id );
 
   } else {
     $url  = get_the_permalink(get_the_ID());
@@ -90,7 +91,7 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2) {
         $disable_link = ($current_page == 1) ? 'disabled' : '';
 
         echo '<li class="page-item">';
-        echo '<a class="page-link" aria-label="Previous" title="' . __('Página anterior', 'menin') . '" ' . $disable_link . ' href="' . $url . '&pg=1"><span>&laquo;</span></a>';
+        echo '<a class="page-link" aria-label="Previous" title="' . __('Página anterior', 'iff') . '" ' . $disable_link . ' href="' . $url . '&pg=1"><span>&laquo;</span></a>';
         echo '</li>';
 
         // Previous pages
@@ -128,7 +129,7 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2) {
         endif;
 
         // Check if the last page 
-        $disable_link = ($current_page == $pages_count) ? 'disabled' : 'title="' . __('Próxima página', 'menin') . '"';
+        $disable_link = ($current_page == $pages_count) ? 'disabled' : 'title="' . __('Próxima página', 'iff') . '"';
 
         echo '<li class="page-item">';
         echo '<a class="page-link" aria-label="Next" ' . $disable_link . ' href="' . (($current_page != $pages_count) ? ($url . '&pg=' . ($current_page + 1)) : '') . '"><span>&raquo;</span></a>';
@@ -138,3 +139,4 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2) {
     </nav>
   <?php endif;
 }
+
