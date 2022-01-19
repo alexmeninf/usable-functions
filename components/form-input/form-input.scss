@@ -1,37 +1,62 @@
-$bg-form-color: $bg-base; // Background
-$color-text-form: $color-base; // Cor do texto
-$color-focus-default: $color-default; // Cor destaque
+// Spacing
+$input-space-y: 0.85em;
+$input-space-x: 0.75em;
 
-// Espaçamento
-$input-space-y: 12px;
-$input-space-x: 13px;
+/*
+ * Reset fields
+ */
+input:not([type="radio"]):not([type="checkbox"]),
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input,
+select,
+optgroup,
+textarea {
+  border-radius: 0.4em;
+  border: 1px solid var(--color-input-border-color);
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.6em;
+  padding: 0.5em 0.75em;
+  width: 100%;
+  @extend %transition;
+}
+
+option {
+  color: $dark;
+}
+
+textarea {
+  max-height: 250px;
+  min-height: 63px;
+}
 
 %input {
   background: none;
   border: 0;
-  color: $color-text-form;
-  font-size: 1em;
-  transition: all 0.3s ease;
-  width: 100%;
+  box-shadow: none;
+  color: var(--color-input-txt);
+  margin-bottom: 0;
 }
 
 .material-form {
-  input:not([type="radio"]):not([type="checkbox"]),
-  textarea {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-
-  textarea {
-    max-height: 250px;
-    min-height: 63px;
+  .form-group {
+    border-radius: 0.4em;
+    margin-bottom: 0.3em;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
   }
 
   input:not([type="radio"]):not([type="checkbox"]),
   select,
   textarea {
-    padding: ($input-space-y + 10px) $input-space-x $input-space-y;
+    background-color: var(--color-fill);
+    padding: ($input-space-y + 0.4em) $input-space-x $input-space-y;
     @extend %input;
 
     // Autofill
@@ -39,18 +64,18 @@ $input-space-x: 13px;
     &:-webkit-autofill:hover,
     &:-webkit-autofill:focus,
     &:-webkit-autofill:active {
-      -webkit-box-shadow: 0 0 0px 1000px $bg-form-color inset !important;
-      -webkit-text-fill-color: $color-text-form !important;
+      -webkit-box-shadow: 0 0 0px 1000px var(--color-fill) inset !important;
+      -webkit-text-fill-color: var(--color-input-txt) !important;
     }
 
     // Placeholder
     @include input-placeholder {
-      color: $color-text-form;
+      color: var(--color-input-txt);
     }
 
     &:not(:placeholder-shown) {
       + span {
-        color: $color-focus-default;
+        color: var(--color-theme);
         transform: translateY(-11px) scale(0.66);
       }
     }
@@ -59,20 +84,14 @@ $input-space-x: 13px;
       outline: none;
 
       + span {
-        color: $color-focus-default;
+        color: var(--color-theme);
         transform: translateY(-11px) scale(0.66);
       }
     }
   }
 
-  .form-group {
-    position: relative;
-    margin-bottom: 1rem;
-    width: 100%;
-  }
-
   .txt {
-    color: lighten($color-base, 40%);
+    color: var(--color-txt-contrast);
     cursor: auto;
     font-size: 1em;
     font-weight: 500;
@@ -80,14 +99,18 @@ $input-space-x: 13px;
     padding-left: 5px;
     pointer-events: none;
     position: absolute;
-    top: 19px;
+    top: 1em;
     transform-origin: 0 0;
     transition: all 0.2s ease;
-    @include user-select(none);
+    user-select: none;
+
+    @include media(sm, max) {
+      top: 1.2em;
+    }
   }
 
   .bar {
-    background: $color-focus-default;
+    background: var(--color-theme);
     bottom: 0;
     height: 2px;
     left: 0;
@@ -100,19 +123,24 @@ $input-space-x: 13px;
 }
 
 .standard-basic {
+  .form-group {
+    border-radius: 0;
+  }
+
   input:not([type="radio"]):not([type="checkbox"]),
   select,
   textarea {
-    background-color: rgba(213, 213, 213, 0.149);
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--color-input-border-color);
+    border-radius: 0;
 
     &:hover {
       border-bottom-width: 2px;
-      margin-bottom: -1px;
     }
 
     &:focus {
       + span {
+        transform: translate(-4px, -11px) scale(0.66);
+
         + .bar {
           transform: scaleX(1);
         }
@@ -133,39 +161,83 @@ $input-space-x: 13px;
   input:not([type="radio"]):not([type="checkbox"]),
   select,
   textarea {
-    border: 1px solid $border-color;
-    border-radius: 4px;
+    border: 1px solid var(--color-input-border-color);
 
     &:hover,
     &:focus {
-      border-color: $color-focus-default;
+      border-color: var(--color-theme);
     }
-  }
-
-  .txt {
-    top: 0.9em;
-    background: $bg-form-color;
   }
 }
 
+// Input com opacidade.
 .translucent-form {
   input:not([type="radio"]):not([type="checkbox"]),
   select,
   textarea {
-    @extend %input;
-    border-radius: 4px;
-    background-color: rgba(213, 213, 213, 0.149);
-    margin-bottom: 1rem;
-    padding: $input-space-y $input-space-x;
+    background-color: rgba(213, 213, 213, 0.25);
+    border-color: transparent;
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
 
     @include input-placeholder {
-      color: $color-text-form;
+      color: $white !important;
+      opacity: 0.5;
     }
   }
 
   textarea {
     max-height: 200px;
     min-height: 52px;
+  }
+
+  .txt {
+    background-color: transparent;
+  }
+}
+
+// Suporte para bg escuro
+.input-light {
+  input,
+  textarea,
+  select,
+  .txt {
+    color: $white !important;
+  }
+
+  &:not(.translucent-form) {
+    input,
+    textarea,
+    select {
+      background: transparent !important;
+      border-color: var(--color-input-border-color) !important;
+    }
+  }
+
+  input,
+  textarea,
+  select {
+    @include input-placeholder {
+      color: $white !important;
+      opacity: 0.5;
+    }
+  }
+}
+
+.default {
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .txt {
+    order: 0;
+  }
+
+  input,
+  textarea,
+  select {
+    order: 1;
   }
 }
 
