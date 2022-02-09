@@ -1,32 +1,114 @@
-<?php
+<?php 
+/**
+ * AJAX Add to Cart Button on the Product Page – WooCommerce
+ * 
+ * Article: https://aceplugins.com/ajax-add-to-cart-button-on-the-product-page-woocommerce/
+ */
 
-add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
-add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');  
+if ( ! defined( 'ABSPATH' ) ) 
+	exit; // Exit if accessed directly
 
-function woocommerce_ajax_add_to_cart() {
-  $product_id = apply_filters('woocommerce_add_to_cart_product_id', absint($_POST['product_id']));
-  $quantity = empty($_POST['quantity']) ? 1 : wc_stock_amount($_POST['quantity']);
-  $variation_id = absint($_POST['variation_id']);
-  $passed_validation = apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $quantity);
-  $product_status = get_post_status($product_id);
+/**
+ * JS for AJAX Add to Cart handling
+ */
+function product_page_ajax_add_to_cart_js() { ?>
+  <script type="text/javascript" charset="UTF-8">
+		jQuery(function($) {
+			$('form.cart').on('submit', function(e) {
+				e.preventDefault();
 
-  if ($passed_validation && WC()->cart->add_to_cart($product_id, $quantity, $variation_id) && 'publish' === $product_status) {
+				var form = $(this);
+				form.block({ message: null, overlayCSS: { background: '#fff', opacity: 0.6 } });
 
-    do_action('woocommerce_ajax_added_to_cart', $product_id);
+				var formData = new FormData(form[0]);
+				formData.append('add-to-cart', form.find('[name=add-to-cart]').val() );
 
-    if ('yes' === get_option('woocommerce_cart_redirect_after_add')) {
-      wc_add_to_cart_message(array($product_id => $quantity), true);
-    }
+				// Ajax action.
+				$.ajax({
+					url: wc_add_to_cart_params.wc_ajax_url.toString().replace( '%%endpoint%%', 'product_single_add_to_cart' ),
+					data: formData,
+					type: 'POST',
+					processData: false,
+					contentType: false,
+					complete: function( response ) {
+						response = response.responseJSON;
 
-    WC_AJAX :: get_refreshed_fragments();
-  } else {
+						if ( ! response ) {
+							return;
+						}
 
-    $data = array(
-     'error' => true,
-     'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink($product_id), $product_id));
+						if ( response.error && response.product_url ) {
+							window.location = response.product_url;
+							return;
+						}
 
-    echo wp_send_json($data);
-  }
+						// Redirect to cart option
+						if ( wc_add_to_cart_params.cart_redirect_after_add === 'yes' ) {
+							window.location = wc_add_to_cart_params.cart_url;
+							return;
+						}
 
-  wp_die();
+						//var $thisbutton = form.find('.single_add_to_cart_button[type=submit]'); //
+            var $thisbutton = null; // uncomment this if you don't want the 'View cart' button
+
+						// Trigger event so themes can refresh other areas.
+						$( document.body ).trigger( 'added_to_cart', [ response.fragments, response.cart_hash, $thisbutton ] );
+
+						// Remove existing notices
+						$( '.woocommerce-error, .woocommerce-message, .woocommerce-info' ).remove();
+
+						// Add new notices
+						form.closest('.product').before(response.fragments.notices_html)
+
+						form.unblock();
+
+            // Abrir aba do carrinho
+            $('aside.mini-cart').addClass('open');
+					}
+				});
+			});
+		});
+	</script>
+  
+  <?php
 }
+add_action( 'wp_footer', 'product_page_ajax_add_to_cart_js' );
+
+
+/**
+ * Add to cart handler.
+ */
+function product_ajax_add_to_cart_handler() {
+	WC_Form_Handler::add_to_cart_action();
+	WC_AJAX::get_refreshed_fragments();
+}
+add_action( 'wc_ajax_product_single_add_to_cart', 'product_ajax_add_to_cart_handler' );
+add_action( 'wc_ajax_nopriv_product_single_add_to_cart', 'product_ajax_add_to_cart_handler' );
+
+// Remove WC Core add to cart handler to prevent double-add
+remove_action( 'wp_loaded', array( 'WC_Form_Handler', 'add_to_cart_action' ), 20 );
+
+
+
+/**
+ * Add fragments for notices.
+ */
+function product_ajax_add_to_cart_add_fragments( $fragments ) {
+	$all_notices  = WC()->session->get( 'wc_notices', array() );
+	$notice_types = apply_filters( 'woocommerce_notice_types', array( 'error', 'success', 'notice' ) );
+
+	ob_start();
+	foreach ( $notice_types as $notice_type ) {
+		if ( wc_notice_count( $notice_type ) > 0 ) {
+			wc_get_template( "notices/{$notice_type}.php", array(
+				'notices' => array_filter( $all_notices[ $notice_type ] ),
+			) );
+		}
+	}
+	$fragments['notices_html'] = ob_get_clean();
+
+	wc_clear_notices();
+
+	return $fragments;
+}
+add_filter( 'woocommerce_add_to_cart_fragments', 'product_ajax_add_to_cart_add_fragments' );
