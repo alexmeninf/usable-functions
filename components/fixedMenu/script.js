@@ -1,4 +1,4 @@
-headerFix = () => {
+fixedMenu = () => {
   let fixColor = "new-bg",
     $header = $(".fixed-header");
 
