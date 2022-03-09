@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    .timeline {
+      padding: 120px 0;
+    }
+
+    .timeline__section .wrapper {
+      margin: 0 auto;
+      padding: 0 30px 0 85px;
+      width: 100%;
+    }
+
+    .timeline__section .milestone {
+      padding-top: 70px
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .timeline__nav {
+      position: sticky;
+      z-index: 2;
+      top: 0;
+      transition: 0.2s ease-out;
+      opacity: 0;
+      display: inline-block;
+    }
+
+    @media (max-width: 991px) {
+      .timeline__nav {
+        margin-left: 15px;
+      }
+    }
+
+    .timeline__nav ul {
+      list-style: none;
+      list-style-position: inside;
+      margin: 15px 0;
+    }
+
+    .timeline__nav ul li {
+      margin: 15px 0;
+      padding-left: 0;
+      list-style-type: none;
+      color: #bfc1c3;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.43, -0.25, 0.29, 1.26);
+    }
+
+    .timeline__nav .active {
+      font-weight: bold;
+      color: var(--color-theme);
+      transform: scale(1.2);
+    }
+
+    .timeline__title {
+      transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .timeline__section .active {
+      font-weight: bold;
+      color: var(--color-theme);
+      transform: translateX(10px);
+    }
+  </style>
+
+
+  <article class="timeline">
+    <nav class="timeline__nav">
+      <ul>
+        <li><span>1993</span></li>
+        <li><span>1994</span></li>
+        <li><span>1995</span></li>
+        <li><span>1996</span></li>
+      </ul>
+    </nav>
+    <section class="timeline__section">
+      <div class="wrapper">
+        <div class="milestone">
+          <h2 class="timeline__title">1993</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi dolor temporibus ducimus laborum fugit
+            porro ut earum at asperiores ratione accusamus assumenda amet, officia delectus sapiente, quos dolorem
+            eveniet minima?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptates architecto natus, eum possimus
+            sunt pariatur ad, cum nulla repudiandae minima! Quam praesentium architecto, libero impedit laudantium alias
+            assumenda error.</p>
+        </div>
+        <div class="milestone">
+          <h2 class="timeline__title">1994</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi dolor temporibus ducimus laborum fugit
+            porro ut earum at asperiores ratione accusamus assumenda amet, officia delectus sapiente, quos dolorem
+            eveniet minima?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptates architecto natus, eum possimus
+            sunt pariatur ad, cum nulla repudiandae minima! Quam praesentium architecto, libero impedit laudantium alias
+            assumenda error.</p>
+        </div>
+        <div class="milestone">
+          <h2 class="timeline__title">1995</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi dolor temporibus ducimus laborum fugit
+            porro ut earum at asperiores ratione accusamus assumenda amet, officia delectus sapiente, quos dolorem
+            eveniet minima?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptates architecto natus, eum possimus
+            sunt pariatur ad, cum nulla repudiandae minima! Quam praesentium architecto, libero impedit laudantium alias
+            assumenda error.</p>
+        </div>
+        <div class="milestone">
+          <h2 class="timeline__title">1996</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi dolor temporibus ducimus laborum fugit
+            porro ut earum at asperiores ratione accusamus assumenda amet, officia delectus sapiente, quos dolorem
+            eveniet minima?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptates architecto natus, eum possimus
+            sunt pariatur ad, cum nulla repudiandae minima! Quam praesentium architecto, libero impedit laudantium alias
+            assumenda error.</p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <script>
+    $(() => {
+      let timeline = $('.timeline__nav'),
+        content = $('.timeline__section'),
+        items = $('li', timeline),
+        milestones = $('.timeline__section .milestone'),
+        offsetTop = parseInt(timeline.css('top'));
+
+      let stickyTop = 0,
+        contentHeight = 0,
+        contentOffset = content.offset().top,
+        scrollTarget = false;
+
+      content.css('margin-top', '-' + timeline.height() + 'px')
+
+      const TIMELINE_VALUES = {
+        start: 190,
+        step: 30
+      }
+
+      $(window).resize(function () {
+        stickyTop = content.offset().top - offsetTop;
+        $(window).trigger('scroll')
+      }).trigger('resize')
+
+      $(window).scroll(function () {
+        contentOffset = content.offset().top - 200;
+        contentHeight = content.height();
+
+        if ($(window).scrollTop() >= (contentHeight + contentOffset)) {
+          timeline.css({
+            opacity: 0,
+            visually: 'hidden'
+          });
+        } else if ($(window).scrollTop() >= contentOffset) {
+          timeline.css({
+            opacity: 1,
+            visually: 'visible'
+          });
+        } else {
+          timeline.css({
+            opacity: 0,
+            visually: 'hidden'
+          });
+        }
+      }).trigger('scroll')
+
+      items.find('span').click(function () {
+        let li = $(this).parent(),
+          index = li.index(),
+          milestone = milestones.eq(index)
+
+        if (!li.hasClass('active') && milestone.length) {
+          scrollTarget = index
+
+          let scrollTargetTop = milestone.offset().top - 80
+
+          $('html, body').animate({
+            scrollTop: scrollTargetTop
+          }, {
+            duration: 400,
+            complete: function complete() {
+              scrollTarget = false
+            }
+          })
+        }
+      })
+
+      $(window).scroll(function () {
+        let viewLine = $(window).scrollTop() + $(window).height() / 3,
+          active = -1
+
+        if (scrollTarget === false) {
+          milestones.each(function () {
+            if ($(this).offset().top - viewLine > 0) {
+              return false
+            }
+
+            active++
+          })
+        } else {
+          active = scrollTarget
+        }
+
+        timeline.css('top', -1 * active * TIMELINE_VALUES.step + TIMELINE_VALUES.start + 'px');
+        items.filter('.active').removeClass('active');
+        items.eq(active != -1 ? active : 0).addClass('active');
+        $('h2', milestones).filter('.active').removeClass('active');
+        $('h2', milestones).eq(active != -1 ? active : 0).addClass('active');
+      }).trigger('scroll')
+    })
+  </script>
+</body>
+
+</html>

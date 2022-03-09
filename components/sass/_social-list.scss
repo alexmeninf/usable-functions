@@ -1,4 +1,7 @@
 .social-list {
+  --social-list-color: var(--color-theme);
+  --social-list-text-color: var(--social-list-color);
+  --social-list-size: 2.6rem;
 
   li {
     display: inline-block;
@@ -10,18 +13,24 @@
     a {
       align-items: center;
       border-radius: 100%;
-      border: 1px solid lighten($color-dark, 10%);
-      color: $color-light;
+      border: 1px solid var(--social-list-color);
+      color: var(--social-list-text-color);
       display: flex;
-      height: 40px;
+      height: var(--social-list-size);
       justify-content: center;
       text-align: center;
       text-decoration: none;
-      width: 40px;
+      width: var(--social-list-size);
+      font-size: var(--social-list-size);
       @extend %transition;
 
+      i {
+        font-size: 0.45em;
+      }
+
       &:hover {
-        background: lighten($color-dark, 10%);
+        background: var(--social-list-color);
+        color: $white;
         transform: translateY(-5px);
       }
     }

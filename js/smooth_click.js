@@ -1,5 +1,4 @@
-
-smoothClick = (duration = 1500) => {
+smoothClick = (duration = 1200) => {
   // smooth scroll
   $('a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function (event) {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') &&

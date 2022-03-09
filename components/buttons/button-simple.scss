@@ -1,0 +1,58 @@
+.btn-theme {
+  --btn-border-radius: #{$border-radius};
+  border: 1px solid;
+  border-radius: var(--btn-border-radius);
+  cursor: pointer;
+  display: inline-block;
+  font-size: calc(1.05rem + 0.35vw);
+  font-weight: 600;
+  text-decoration: unset;
+  user-select: none;
+  padding: 0.5em 1.1em;
+  margin: 0.25rem 0;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.2;
+
+  > i {
+    font-size: 110%;
+    vertical-align: middle;
+    
+    &.icon-before {
+      margin-right: 0.3em;
+    }
+    
+    &.icon-after {
+      margin-left: 0.3em;
+    }
+  }
+
+  @include button(
+    var(--color-button-background), 
+    var(--color-button-text), 
+    var(--color-button-background), 
+    var(--color-button-background-hover), 
+    var(--color-button-text-hover), 
+    var(--color-button-background-hover)
+  );
+}
+
+.btn-small {
+  font-size: 12px;
+}
+
+.btn-medium {
+  font-size: 17px;
+}
+
+.btn-theme-inverse {
+  border: 1px solid;
+  @include button(
+    transparent, 
+    var(--color-button-background), 
+    var(--color-button-background), 
+    var(--color-button-background), 
+    var(--color-button-text), 
+    var(--color-button-background)
+  );
+}

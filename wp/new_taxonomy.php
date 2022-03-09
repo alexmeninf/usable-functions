@@ -21,7 +21,7 @@ add_action( 'init', 'NAME_HERE_init' );
 =            ADD NEW COLUMN           =
 ======================================= */
 function NAME_HERE_head($defaults) {
-  $defaults['NAME_HERE'] = 'NAME_HERE';
+  $defaults['NAME_HERE'] = 'NAME_HERE'; // Título da coluna
   return $defaults;
 }
 
@@ -43,13 +43,25 @@ add_action('manage_NAME_POST_TYPE_posts_custom_column', 'NAME_HERE_content', 5, 
 add_filter('manage_posts_columns', 'column_order');
 function column_order($columns) {
   $n_columns = array();
-  $move = 'NAME_HERE'; // what to move
-  $before = 'date'; // move before this
-  foreach($columns as $key => $value) {
-    if ($key==$before){
-      $n_columns[$move] = $move;
-    }
-    $n_columns[$key] = $value;
+  $post_type = get_post_type();
+
+  switch ($post_type) {
+
+    case 'NAME_POST_TYPE':
+      $move = 'NAME_HERE'; // what to move
+      $before = 'date'; // move before this
+      foreach ($columns as $key => $value) {
+        if ($key == $before) {
+          $n_columns[$move] = $move;
+        }
+        $n_columns[$key] = $value;
+      }
+      break;    
+
+    default:
+      $n_columns = $columns;
+      break;
   }
+
   return $n_columns;
 }

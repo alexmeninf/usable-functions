@@ -1,0 +1,11 @@
+<div class="preload">
+  <img src="loading.svg" alt="Carregando..." height="35" width="35">
+</div>
+
+<script>
+  $('body').css('overflow-y', 'hidden');
+  window.addEventListener("load", function(event) {
+    $('.preload').fadeOut();
+    $('body').css('overflow-y', 'visible');
+  });
+</script>

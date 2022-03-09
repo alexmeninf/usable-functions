@@ -1,0 +1,387 @@
+[
+    {
+        "key": "group_61decadfcc9d4",
+        "title": "Detalhes do (Blog de lançamento)",
+        "fields": [
+            {
+                "key": "field_61decb1235739",
+                "label": "CPL",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_61decb263573a",
+                "label": "Ativar CPL?",
+                "name": "ativar_cpl",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_61decb393573b",
+                "label": "Vídeo",
+                "name": "embed_video",
+                "type": "oembed",
+                "instructions": "<b>Obs:<\/b> Campo obrigatório.",
+                "required": 1,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "width": "",
+                "height": ""
+            },
+            {
+                "key": "field_61effe557e507",
+                "label": "Liberar o vídeo mais cedo?",
+                "name": "enable_earlier",
+                "type": "true_false",
+                "instructions": "Caso o vídeo for <b>ao vivo<\/b>, o vídeo será exibido a partir das 00h na data do lançamento. Assim o YouTube exibirá o botão \"Ativar lembrete de estreia\".",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_61decb573573c",
+                "label": "Data de Publicação",
+                "name": "publication_data",
+                "type": "date_time_picker",
+                "instructions": "<b>Obs:<\/b> Campo obrigatório.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "d\/m\/Y g:i a",
+                "return_format": "Y-m-d H:i:s",
+                "first_day": 1
+            },
+            {
+                "key": "field_61decb983573d",
+                "label": "Capa da CPL",
+                "name": "thumbnail_video",
+                "type": "image",
+                "instructions": "<b>Obs:<\/b> Campo obrigatório.",
+                "required": 1,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "min_width": "",
+                "min_height": "",
+                "min_size": "",
+                "max_width": "",
+                "max_height": "",
+                "max_size": "",
+                "mime_types": ""
+            },
+            {
+                "key": "field_61effdc77e506",
+                "label": "Capa da CPL (Aula bloqueada)",
+                "name": "thumbnail_video_locked",
+                "type": "image",
+                "instructions": "Exiba uma imagem diferente enquanto a aula não é liberada. Caso não coloque nada aqui, a thumbnail de cima será como base.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "min_width": "",
+                "min_height": "",
+                "min_size": "",
+                "max_width": "",
+                "max_height": "",
+                "max_size": "",
+                "mime_types": ""
+            },
+            {
+                "key": "field_61decc5135742",
+                "label": "Link da Atividade",
+                "name": "link_atividade",
+                "type": "link",
+                "instructions": "<b>Obs:<\/b> Campo opcional.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array"
+            },
+            {
+                "key": "field_61decc9935747",
+                "label": "Permitir download da atividade",
+                "name": "enable_download",
+                "type": "true_false",
+                "instructions": "Por padrão o botão da atividade abre em uma nova aba. Marque esta opção para que o material seja baixado ao clicar.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_61decbe53573e",
+                "label": "Possui mais detalhes?",
+                "name": "possui_mais_detalhes",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_61decc0a3573f",
+                "label": "Título",
+                "name": "titulo",
+                "type": "text",
+                "instructions": "<b>Obs:<\/b> Campo opcional.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        },
+                        {
+                            "field": "field_61decbe53573e",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_61decc2535740",
+                "label": "Subtítulo",
+                "name": "subtitulo",
+                "type": "text",
+                "instructions": "<b>Obs:<\/b> Campo opcional.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        },
+                        {
+                            "field": "field_61decbe53573e",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_61decc3435741",
+                "label": "Descrição",
+                "name": "descricao",
+                "type": "textarea",
+                "instructions": "<b>Obs:<\/b> Campo opcional.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_61decb263573a",
+                            "operator": "==",
+                            "value": "1"
+                        },
+                        {
+                            "field": "field_61decbe53573e",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": "",
+                "new_lines": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "template-blog-lancamento.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": [
+            "the_content",
+            "excerpt",
+            "discussion",
+            "comments",
+            "revisions",
+            "slug",
+            "author",
+            "format",
+            "page_attributes",
+            "featured_image",
+            "categories",
+            "tags",
+            "send-trackbacks"
+        ],
+        "active": true,
+        "description": ""
+    }
+]

@@ -1,0 +1,128 @@
+[
+    {
+        "key": "group_0e015f4b0cade5",
+        "title": "Detalhes do site",
+        "fields": [  
+            {
+                "key": "field_62255b4b7a274",
+                "label": "Links",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_6225589e37bac",
+                "label": "Redes sociais",
+                "name": "redes_sociais",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "",
+                "sub_fields": [
+                    {
+                        "key": "field_622558aa37bad",
+                        "label": "Link",
+                        "name": "link",
+                        "type": "url",
+                        "instructions": "",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_622558b437bae",
+                        "label": "Icone",
+                        "name": "icone",
+                        "type": "select",
+                        "instructions": "Escolha o ícone para o seu link.",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "fab fa-behance": "Behance",
+                            "fab fa-facebook-f": "Facebook",
+                            "fab fa-github": "Github",
+                            "fab fa-instagram": "Instagram",
+                            "fab fa-linkedin-in": "Linkedin",
+                            "fab fa-pinterest-p": "Pinterest",
+                            "fab fa-skype": "Skype",
+                            "fab fa-telegram-plane": "Telegram",
+                            "fab fa-twitter": "Twitter",
+                            "fab fa-vimeo-v": "Vimeo",
+                            "fab fa-whatsapp": "WhatsApp",
+                            "fab fa-youtube": "YouTube"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "opcoes"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": [
+            "permalink",
+            "the_content",
+            "excerpt",
+            "discussion",
+            "comments",
+            "revisions",
+            "slug",
+            "author",
+            "format",
+            "page_attributes",
+            "featured_image",
+            "categories",
+            "tags",
+            "send-trackbacks"
+        ],
+        "active": true,
+        "description": ""
+    }
+]

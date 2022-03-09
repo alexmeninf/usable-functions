@@ -1,0 +1,301 @@
+// Spacing
+$input-space-y: 0.85em;
+$input-space-x: 0.75em;
+
+/*
+ * Reset fields
+ */
+input:not([type="radio"]):not([type="checkbox"]),
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input,
+select,
+optgroup,
+textarea {
+  border-radius: 0.4em;
+  border: 1px solid var(--color-input-border-color);
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.6em;
+  padding: 0.5em 0.75em;
+  width: 100%;
+}
+
+option {
+  color: var(--color-input-txt);
+}
+
+textarea {
+  max-height: 250px;
+  min-height: 63px;
+}
+
+%input {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  color: var(--color-input-txt);
+  margin-bottom: 0;
+}
+
+.material-form {
+  .form-group {
+    border-radius: 0.4em;
+    margin-bottom: 0.3em;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  input:not([type="radio"]):not([type="checkbox"]),
+  select,
+  textarea {
+    background-color: var(--color-fill);
+    padding: ($input-space-y + 0.4em) $input-space-x $input-space-y;
+    @extend %input;
+
+    // Autofill
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0px 1000px var(--color-fill) inset !important;
+      -webkit-text-fill-color: var(--color-input-txt) !important;
+    }
+
+    // Placeholder
+    @include input-placeholder {
+      color: var(--color-input-txt);
+    }
+
+    &:not(:placeholder-shown) {
+      + span {
+        color: var(--color-theme);
+        transform: translateY(-11px) scale(0.66);        
+      }
+    }
+
+    &:focus {
+      outline: none;
+
+      + span {
+        color: var(--color-theme);
+        transform: translateY(-11px) scale(0.66);
+        font-weight: 600;
+      }
+    }
+  }
+
+  .txt {
+    color: var(--color-txt-contrast);
+    cursor: auto;
+    font-size: 1em;
+    font-weight: 500;
+    left: $input-space-x;
+    padding-left: 5px;
+    pointer-events: none;
+    position: absolute;
+    top: 1em;
+    transform-origin: 0 0;
+    transition: transform 0.2s ease, font-weight 0.05s ease-in;
+    user-select: none;
+
+    @include media(sm, max) {
+      top: 1.2em;
+    }
+  }
+
+  .bar {
+    background: var(--color-theme);
+    bottom: 0;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    transform-origin: 0 0;
+    transform: scaleX(0);
+    transition: all 0.4s ease;
+    width: 100%;
+  }
+}
+
+.standard-basic {
+  .form-group {
+    border-radius: 0;
+  }
+
+  input:not([type="radio"]):not([type="checkbox"]),
+  select,
+  textarea {
+    border-bottom: 1px solid var(--color-input-border-color);
+    border-radius: 0;
+
+    &:focus {
+      + span {
+        + .bar {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+
+  textarea {
+    margin-bottom: -6px;
+
+    &:hover {
+      margin-bottom: -7px;
+    }
+  }
+}
+
+.outlined-basic {
+  input:not([type="radio"]):not([type="checkbox"]),
+  select,
+  textarea {
+    border: 1px solid var(--color-input-border-color);
+
+    &:hover,
+    &:focus {
+      border-color: var(--color-theme);
+    }
+  }
+}
+
+// Input com opacidade.
+.translucent-form {
+  input:not([type="radio"]):not([type="checkbox"]),
+  select,
+  textarea {
+    background-color: rgba(213, 213, 213, 0.25);
+    border-color: transparent;
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+
+    @include input-placeholder {
+      color: $white !important;
+      opacity: 0.5;
+    }
+  }
+
+  option {
+    background-color: var(--color-input-border-color);
+  }
+
+  textarea {
+    max-height: 200px;
+    min-height: 52px;
+  }
+
+  .txt {
+    background-color: transparent;
+  }
+}
+
+// Suporte para bg escuro
+.input-light {
+  input,
+  textarea,
+  select,
+  .txt,
+  .title-form-group,
+  .form-check-label {
+    color: $white !important;
+  }
+
+  input:not([type="radio"]):not([type="checkbox"]),
+  select,
+  textarea {
+    &:not(:placeholder-shown) + span,
+    &:focus {
+      opacity: 0.75;
+    }
+  }
+
+  option {
+    background-color: var(--color-input-border-color);
+    color: $white;
+  }
+
+  option[disabled] {
+    color: rgba($white, 0.5);
+  }
+
+  &:not(.translucent-form) {
+    input,
+    textarea,
+    select {
+      background: transparent !important;
+      border-color: var(--color-input-border-color) !important;
+    }
+  }
+
+  input,
+  textarea,
+  select {
+    @include input-placeholder {
+      color: $white !important;
+      opacity: 0.5;
+    }
+  }
+}
+
+.no-style-input {
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .txt {
+    order: 0;
+  }
+
+  input,
+  textarea,
+  select {
+    order: 1;
+  }
+}
+
+// Titulo para grupo
+.title-form-group {
+  font-size: 1.15rem;
+  margin-bottom: 0.4em;
+  margin-top: 1.4em;
+}
+
+
+/**
+ * Input group
+*/
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+  margin-bottom: 0.3em;
+
+  .form-group {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+}
+
+.input-group-text {
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-input-txt);  
+  text-align: center;
+  white-space: nowrap;
+  border-bottom: 1px solid 1px solid var(--color-input-border-color);
+}
+

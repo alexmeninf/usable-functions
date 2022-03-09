@@ -90,7 +90,7 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2) {
         $disable_link = ($current_page == 1) ? 'disabled' : '';
 
         echo '<li class="page-item">';
-        echo '<a class="page-link" aria-label="Previous" title="' . __('Página anterior', 'menin') . '" ' . $disable_link . ' href="' . $url . '&pg=1"><span>&laquo;</span></a>';
+        echo '<a class="page-link" aria-label="Previous" title="' . __('Página anterior', 'startertheme') . '" ' . $disable_link . ' href="' . $url . '&pg=1"><span>&laquo;</span></a>';
         echo '</li>';
 
         // Previous pages
@@ -128,7 +128,7 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2) {
         endif;
 
         // Check if the last page 
-        $disable_link = ($current_page == $pages_count) ? 'disabled' : 'title="' . __('Próxima página', 'menin') . '"';
+        $disable_link = ($current_page == $pages_count) ? 'disabled' : 'title="' . __('Próxima página', 'startertheme') . '"';
 
         echo '<li class="page-item">';
         echo '<a class="page-link" aria-label="Next" ' . $disable_link . ' href="' . (($current_page != $pages_count) ? ($url . '&pg=' . ($current_page + 1)) : '') . '"><span>&raquo;</span></a>';
