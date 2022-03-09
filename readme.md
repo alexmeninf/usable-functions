@@ -16,6 +16,6 @@
 - Components for structuring and styling
 - Functions in javascript
 
-### Author: Alexandre Menin
-### Tested up to: 5.2
-### Requires PHP: 5.6
+Author: Alexandre Menin
+Tested up to: 5.2
+Requires PHP: 5.6
