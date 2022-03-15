@@ -1,76 +1,86 @@
-drawerMobile = () => {
-  let drawer = '.drawer-mobile',
-    drawerButton = '.drawerButton',
-    drawerClose = '.close-menu',
-    drawerClosed = 'drawerClosed',
-    drawerOpen = 'drawerOpen',
-    listMenu = '.drawer-mobile .wrap',
-    submenu = '.children',
-    iconAnimate = 'rotateIcon';
+jQuery(function ($) {
 
-  function openMenuSwiped() {
-    $('body').css('overflow', 'hidden');
-    $(drawer).removeClass(drawerClosed);
-    $(drawer).addClass(drawerOpen);
-    $(listMenu).animate({
-      left: '0'
-    });
-    setTimeout(() => {
-      $(drawerClose).addClass('open');
-    }, 200);
-  }
+  drawerMobile = () => {
+    let drawer = '.drawer-mobile',
+      drawerButton = '.drawerButton',
+      drawerClose = '.close-menu',
+      drawerClosed = 'drawerClosed',
+      drawerOpen = 'drawerOpen',
+      listMenu = '.drawer-mobile .wrap',
+      submenu = '.children',
+      iconAnimate = 'rotateIcon';
 
-  function closeMenuSwiped() {
-    $('body').css('overflow', '');
-    $(drawerClose).removeClass('open');
-    $(listMenu).animate({
-      left: '-100%'
-    });
-    setTimeout(() => {
-      $(drawer).addClass(drawerClosed);
-      $(drawer).removeClass(drawerOpen);
-    }, 600);
-  }
+    function openMenuSwiped() {
+      $('body').css('overflow', 'hidden');
+      $(drawer).removeClass(drawerClosed);
+      $(drawer).addClass(drawerOpen);
+      $(listMenu).animate({
+        left: '0'
+      });
 
-  // Open
-  $(drawerButton).click(function (e) {
-    e.preventDefault();
-    openMenuSwiped();
-  });
+      $(drawerButton).css({transform: 'translateX(7px)', opacity: 0, transition: '.3s ease-in'});
 
-  // close and open submenu
-  $(listMenu + " ul > li > a," + drawerClose).click(function () {
-    let parentLi = $(this).parent('li');
-    let hasSubmenu = $(this).parents('li');
-
-    if (parentLi.find(submenu).length) {
-      hasSubmenu.siblings().find(submenu).slideUp();
-      parentLi.find('>' + submenu).slideToggle();
-      hasSubmenu.siblings().find('> a > i').removeClass(iconAnimate);
-      $(this).find('i').toggleClass(iconAnimate);
-      return false;
-
-    } else {
-      $(listMenu + '> li').find(submenu).slideUp();
-      $(listMenu + '> li').find('i').removeClass(iconAnimate);
-      closeMenuSwiped();
+      setTimeout(() => {
+        $(drawerClose).addClass('open');
+      }, 200);
     }
-  });
 
-  document.addEventListener('swiped-right', function (e) {
-    openMenuSwiped();
-  });
+    function closeMenuSwiped() {
+      $('body').css('overflow', '');
+      $(drawerClose).removeClass('open');
+      $(listMenu).animate({
+        left: '-100%'
+      });
+      
+      $(drawerButton).css({transform: 'translateX(0)', opacity: 1});
 
-  document.getElementById('drawer').addEventListener('swiped-left', function (e) {
-    closeMenuSwiped();
-  });
+      setTimeout(() => {
+        $(drawer).addClass(drawerClosed);
+        $(drawer).removeClass(drawerOpen);
+      }, 600);
+    }
 
-  // Search form
-  $(drawer + ' .search-field').on('click', function () {
-    $(drawer + ' .searchfield_cancel').addClass('active-btn');
-  });
+    // Open
+    $(drawerButton).click(function (e) {
+      e.preventDefault();
+      openMenuSwiped();
+    });
 
-  $(drawer + ' .searchfield_cancel').on('click', function () {
-    $(drawer + ' .searchfield_cancel').removeClass('active-btn');
-  });
-}
+    // close and open submenu
+    $(listMenu + " ul > li > a," + drawerClose).click(function () {
+      let parentLi = $(this).parent('li');
+      let hasSubmenu = $(this).parents('li');
+
+      if (parentLi.find(submenu).length) {
+        hasSubmenu.siblings().find(submenu).slideUp();
+        parentLi.find('>' + submenu).slideToggle();
+        hasSubmenu.siblings().find('> a > i').removeClass(iconAnimate);
+        $(this).find('i').toggleClass(iconAnimate);
+        return false;
+
+      } else {
+        $(listMenu + '> li').find(submenu).slideUp();
+        $(listMenu + '> li').find('i').removeClass(iconAnimate);
+        closeMenuSwiped();
+      }
+    });
+
+    document.addEventListener('swiped-right', function (e) {
+      openMenuSwiped();
+    });
+
+    document.getElementById('drawer').addEventListener('swiped-left', function (e) {
+      closeMenuSwiped();
+    });
+
+    // Search form
+    $(drawer + ' .search-field').blur(function() {
+      $(drawer + ' .searchfield_cancel').removeClass('active-btn');
+    })
+    .focus(function() {
+      $(drawer + ' .searchfield_cancel').addClass('active-btn');
+    });
+  }
+
+  drawerMobile();
+});
