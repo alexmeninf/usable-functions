@@ -5,10 +5,10 @@ is_user_logged_in(); // verifica se o usuario esta logado
 
 // CART
 //
-// get cart content and count
+// Obter numeros de itens no carrinho
 WC()->cart->get_cart_contents_count();
 
-// get cart total value
+// Obter valor total no carrinho
 WC()->cart->total;
 
 // Price format

@@ -66,18 +66,29 @@ function qntClick(elem, action = 'click') {
   var num = $input.val();
   // Verifica se existe casa decimal e a input permite numero flutuante
   var hasDecimal = (num.indexOf(".") == -1) ? false : true;
+  // Mensagens
+  const alertMax = `<p class="alert-max-stock">O valor não pode ser maior! ${max} itens em estoque.</p>`;
+
+  // Remover mensagens se houver
+  if (parentBtn.nextAll('p.alert-max-stock:first').length > 0)
+    $('p.alert-max-stock').remove();
+
   // Transforma em number a string
   num = Number(num);
 
   if ($input.val() === "") $input.val(step);
 
+  // Verifica tipo de ação
   if (action == 'typed') {
     if (num <= 0) {
       $input.val(hasDecimal ? parseFloat(step).toFixed(3) : (step));
     } else if (num > max) {
       $input.val(hasDecimal ? parseFloat(max).toFixed(3) : (max));
-    }
 
+      if (parentBtn.nextAll('p.alert-max-stock:first').length == 0) {
+        parentBtn.after(alertMax)
+      }
+    }
   } else {
     if (elem.hasClass("acrescimo")) {
       if (num <= 0) {
