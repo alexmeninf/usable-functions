@@ -14,7 +14,7 @@ function add_content_after_addtocart()
   ?>
 
   <div class="d-flex">
-     <button type="button" class="to-checkout-product single_add_to_cart_button button alt <?php $product->is_type('variable') ? 'disabled wc-variation-selection-needed' : '' ?>" style="background-color: #262626;border-color: #262626">Finalizar Pedido</button>
+    <button type="button" class="to-checkout-product single_add_to_cart_button button alt <?php $product->is_type('variable') ? 'disabled wc-variation-selection-needed' : '' ?>" style="background-color: #262626;border-color: #262626">Finalizar Pedido</button>
   </div>
 
   <?php
