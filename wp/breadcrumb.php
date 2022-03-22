@@ -7,7 +7,7 @@ function custom_breadcrumbs($breadcrums_class = 'breadcrumb mb-0') {
   $separator          = '';
   $breadcrums_id      = 'breadcrumbs';
   $li_class           = 'breadcrumb-item';
-  $home_title         = '<i class="fas fa-home-lg-alt"></i> <span class="visually-hidden">Início</span>';
+  $home_title         = '<i class="fas fa-home-lg-alt"></i> <span class="visually-hidden">'.__('Início', 'startertheme').'</span>';
 
   // Se você tiver algum tipo de postagem personalizado com taxonomias personalizadas, coloque o nome da taxonomia abaixo (e.g. product_cat)
   $custom_taxonomy    = 'product_cat';

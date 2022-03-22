@@ -91,3 +91,17 @@ add_filter( 'woocommerce_cart_total', function( $total ) {
 
   return $total;
 });
+
+
+/**
+ * Preço do produto no card, nao exibir para usuário comum
+ * */
+function woocommerce_template_loop_price() {
+	global $product;
+	
+	if ( disable_product_price() ) {
+    wc_get_template( 'loop/price.php' );
+	} else {
+		echo '';
+	}
+}

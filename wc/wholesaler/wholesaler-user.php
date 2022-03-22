@@ -113,6 +113,9 @@ function check_field_persontype() {
     } else {
       $value_default = '1';
     }
+	  
+	  update_user_meta( get_current_user_id(), 'billing_persontype', $value_default );
+	  
   } else {
     $value_default = $billing_persontype;
   }
@@ -159,7 +162,9 @@ function disable_select_persontype($args, $key, $value)
     }
   }
 
-  if ($key == 'billing_persontype' || $key == 'billing_cnpj' || $key == 'billing_company') {
+  if ($key == 'billing_persontype' && !empty($value) 
+  || $key == 'billing_cnpj' && !empty($value) 
+  || $key == 'billing_company' && !empty($value)) {
     $args['custom_attributes'] = [
       'readonly' => 'readonly',
       'style' => 
@@ -191,15 +196,26 @@ function custom_checkout_validation( $fields, $errors ) {
     $errors->add( 'validation', 'Você não pode alterar <b>Tipo de pessoa</b>, entre em contato com a loja para solicitar a mudança.' );
   }
   if (get_preserved_field('tipo_cadastro') == 'pessoa_juridica') {
-    if ( $fields['billing_cnpj'] !=  get_preserved_field('billing_cnpj') ) {
+    $cnpj = str_replace('.', '', $fields['billing_cnpj']);
+    $cnpj = str_replace('/', '', $cnpj);
+    $cnpj = str_replace('-', '', $cnpj);
+    $preserved_cnpj = str_replace('.', '', get_preserved_field('billing_cnpj'));
+    $preserved_cnpj = str_replace('/', '', $preserved_cnpj);
+    $preserved_cnpj = str_replace('-', '', $preserved_cnpj);
+
+    if (empty($cnpj)) {
+      $errors->add( 'validation', 'O campo <b>CNPJ</b> não pode ser vazio.' );
+    } elseif ( !empty($preserved_cnpj) && $cnpj !=  $preserved_cnpj ) {
       $errors->add( 'validation', 'Você não pode alterar o <b>CNPJ</b>, entre em contato com a loja para solicitar a mudança.' );
     }
-    if ( $fields['billing_company'] !=  get_preserved_field('billing_company') ) {
+
+    if ( empty($fields['billing_company']) ) {
+      $errors->add( 'validation', 'O campo <b>Nome da empresa</b> não pode ser vazio.' );
+    } elseif ( !empty(get_preserved_field('billing_company')) && $fields['billing_company'] != get_preserved_field('billing_company') ) {
       $errors->add( 'validation', 'Você não pode alterar <b>Nome da empresa</b>, entre em contato com a loja para solicitar a mudança.' );
     }
   }
 } 
-
 
 /**
  * Validar se os campos que não podem ser alterados, foram alterados.
@@ -213,10 +229,22 @@ function custom_shipping_validation() {
     wc_add_notice( 'Você não pode alterar <b>Tipo de pessoa</b>, entre em contato com a loja para solicitar a mudança.', 'error' );
   }
   if (get_preserved_field('tipo_cadastro') == 'pessoa_juridica') {
-    if ( $_POST['billing_cnpj'] !=  get_preserved_field('billing_cnpj') ) {
+    $cnpj = str_replace('.', '', $_POST['billing_cnpj']);
+    $cnpj = str_replace('/', '', $cnpj);
+    $cnpj = str_replace('-', '', $cnpj);
+    $preserved_cnpj = str_replace('.', '', get_preserved_field('billing_cnpj'));
+    $preserved_cnpj = str_replace('/', '', $preserved_cnpj);
+    $preserved_cnpj = str_replace('-', '', $preserved_cnpj);
+
+    if (empty($cnpj)) {
+      wc_add_notice( 'O campo <b>CNPJ</b> não pode ser vazio.', 'error' );
+    } elseif ( !empty($preserved_cnpj) && $cnpj !=  $preserved_cnpj ) {
       wc_add_notice( 'Você não pode alterar o <b>CNPJ</b>, entre em contato com a loja para solicitar a mudança.', 'error' );
     }
-    if ( $_POST['billing_company'] !=  get_preserved_field('billing_company') ) {
+
+    if ( empty($_POST['billing_company']) ) {
+      wc_add_notice( 'O campo <b>Nome da empresa</b> não pode ser vazio.', 'error' );
+    } elseif ( !empty(get_preserved_field('billing_company')) && $_POST['billing_company'] != get_preserved_field('billing_company') ) {
       wc_add_notice( 'Você não pode alterar <b>Nome da empresa</b>, entre em contato com a loja para solicitar a mudança.', 'error' );
     }
   }

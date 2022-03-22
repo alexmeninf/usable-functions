@@ -11,6 +11,10 @@ function NAME_HERE_init() {
       'label'        => __( 'NAME_HEREs' ),
       'rewrite'      => array( 'slug' => 'NAME_HERE' ),
       'hierarchical' => true,
+      'query_var'        => true,
+      'show_in_rest'      => true,
+      'show_admin_column' => true,
+	    'with_front'    => true
     )
   );
 }

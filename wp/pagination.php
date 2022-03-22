@@ -19,10 +19,10 @@ if( $sql_posts->have_posts() ): while( $sql_posts->have_posts() ): $sql_posts->t
  *
  * @version 1.2
  * 
- * @param  mixed $current_page - Página atual selecionada na páginação
- * @param  mixed $pages_count - Conta total de páginas geradas
- * @param  mixed $maxLinks - Máximo de links na paginação antes/depois
- * @param  mixed $param_name - Nome do paramentro atual para a url
+ * @param integer $current_page - Página atual selecionada na páginação
+ * @param integer $pages_count - Conta total de páginas geradas
+ * @param integer $maxLinks - Máximo de links na paginação antes/depois
+ * @param string $param_name - Nome do paramentro atual para a url
  * 
  */
 function get_pagination($current_page, $pages_count, $maxLinks = 2, $param_name = 'pg') {
@@ -31,20 +31,33 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2, $param_name 
   $args = "?";
   $firstRun = true;
 
-  if (! empty($_GET)) {
+  if (!empty($_GET)) {
+
+    $i = 0;
+
     foreach ($_GET as $key => $val) {
       // Remove duplicate parameter
       $check_pg = ($param_name != $key);
-  
-      if ($key != $parameter) {
+
+      if ($key != null) {
         if (!$firstRun && $check_pg) {
           $args .= $args == '?' ? '' : '&';
         } else {
           $firstRun = false;
         }
-  
+
         if ($check_pg) {
-          $args .= $key . "=" . $val;
+          if (is_array($val)) {
+            $count = count($val);
+            foreach ($val as $valitem) {
+              $args .= $key . "[]=" . $valitem;
+              if (++$i !== $count) {
+                $args .= '&';
+              }
+            }
+          } else {
+            $args .= $key . "=" . $val;
+          }
         }
       }
     }
