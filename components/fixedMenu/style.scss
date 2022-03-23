@@ -84,7 +84,7 @@ $margin-y-header: 5px;
     // First Parent
     ul {
       margin: 0;
-      padding: 0;
+      padding-left: 0;
       display: block;
       position: relative;
 
@@ -100,6 +100,7 @@ $margin-y-header: 5px;
           font-size: 14px;
           text-decoration: none;
           transition: 0.2s all;
+          line-height: 1.1;
 
           span {
             @extend %ellipsis;
@@ -116,23 +117,26 @@ $margin-y-header: 5px;
     .sub-menu {
       display: none;
       background-color: rgba($white, 0.94);
-      box-shadow: 0 3px 5px rgba($black, 0.1);
-      margin-left: 10px;
+      box-shadow: 6px 6px 6px -4px rgb(0 0 0 / 14%), -2px -2px 3px rgb(0 0 0 / 5%);
+      padding: 0.5em 0;
+      margin-top: 10px;
+      margin-left: -4px;
+      border-radius: 0.65rem;
 
       li {
         display: block;
 
         a {
           display: block;
-          padding: 1em;
+          padding: .75em 1.75em;
         }
       }
     }
 
     // Hover e link ativado
     li:hover > a {
-      background: #83ed907a;
-      color: #042e09ed;
+      background: rgba(218, 218, 218, 0.384);
+      color: var(--color-theme);
     }
 
     .current-menu-item a {
@@ -140,25 +144,18 @@ $margin-y-header: 5px;
     }
 
     ul ul {
-      display: none;
       position: absolute;
       top: 100%;
       left: 0;
-      z-index: 1001;
-    }
 
-    ul ul ul {
-      top: 5px;
-      left: 95%;
-      z-index: 1002;
-    }
+      ul {
+        top: 0;
+        left: 100%;
 
-    ul ul ul ul {
-      z-index: 1003;
-    }
-
-    ul ul ul ul ul {
-      z-index: 1004;
+        ul {
+          left: -100%;
+        }
+      }
     }
   }
 
