@@ -7,7 +7,7 @@ jQuery(function ($) {
       drawerClosed = 'drawerClosed',
       drawerOpen = 'drawerOpen',
       listMenu = '.drawer-mobile .wrap',
-      submenu = '.children',
+      submenu = '.sub-menu',
       iconAnimate = 'rotateIcon';
 
     function openMenuSwiped() {
@@ -47,30 +47,23 @@ jQuery(function ($) {
     });
 
     // close and open submenu
-    $(listMenu + " ul > li > a," + drawerClose).click(function () {
+    $(listMenu + " .menu-item-has-children > a," + drawerClose).click(function () {
       let parentLi = $(this).parent('li');
       let hasSubmenu = $(this).parents('li');
 
       if (parentLi.find(submenu).length) {
         hasSubmenu.siblings().find(submenu).slideUp();
+        parentLi.find('>' + submenu + ' ul').slideUp();
         parentLi.find('>' + submenu).slideToggle();
         hasSubmenu.siblings().find('> a > i').removeClass(iconAnimate);
         $(this).find('i').toggleClass(iconAnimate);
         return false;
 
       } else {
-        $(listMenu + '> li').find(submenu).slideUp();
-        $(listMenu + '> li').find('i').removeClass(iconAnimate);
+        $(listMenu + ' li').find(submenu).slideUp();
+        $(listMenu + ' li').find('i').removeClass(iconAnimate);
         closeMenuSwiped();
       }
-    });
-
-    document.addEventListener('swiped-right', function (e) {
-      openMenuSwiped();
-    });
-
-    document.getElementById('drawer').addEventListener('swiped-left', function (e) {
-      closeMenuSwiped();
     });
 
     // Search form

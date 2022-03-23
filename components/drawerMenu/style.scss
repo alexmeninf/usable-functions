@@ -56,10 +56,12 @@
   }
 
   .wrap {
+    -webkit-backdrop-filter: blur(15px) saturate(130%);
+    backdrop-filter: blur(15px) saturate(130%);
     box-shadow: 4px 0 8px rgb(0 0 0 / 17%);
     height: 100%;
     position: relative;
-    background-color: rgb(255 255 255 / 85%);
+    background-color: rgb(255 255 255 / 75%);
     left: -100%;
     width: 100%;
     max-width: 500px;
@@ -111,11 +113,11 @@
         }
       }
 
-      &.page_item_has_children > a {
+      &.menu-item-has-children > a {
         font-weight: 500;
       }
 
-      &:not(.page_item_has_children) {
+      &:not(.menu-item-has-children) {
         a {
           background: rgb(27 27 30 / 8%);
           border-radius: 0.4em;
@@ -128,12 +130,12 @@
       }
 
       // Página atual
-      &.current_page_item > a {
+      &.current-menu-item > a {
         color: var(--color-theme) !important;
       }
 
       // Submenu
-      .children {
+      .sub-menu {
         display: none;
         margin-left: 5px;
       }
