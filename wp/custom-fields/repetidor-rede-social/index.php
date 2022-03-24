@@ -6,5 +6,4 @@
     </li>
     <?php endwhile; ?>
   </ul>
-</div>
 <?php endif; ?>
