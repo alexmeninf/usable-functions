@@ -4,14 +4,14 @@ if (!defined('ABSPATH'))
   exit;
 
 /**
- * filter_wholesaler_needs_payment
+ * filter_user_needs_payment
  * 
- * Verifica se o atacadista precisa de método de pagamento. 
- * Caso esteja desabilitado será removido o método de pagamento.
+ * Verifica se o usuário precisa de método de pagamento. 
+ * Caso esteja desabilitado será removido o método de pagamento e frete.
  *
  * @return void
  */
-function filter_wholesaler_needs_payment() {
+function filter_user_needs_payment() {
   if (user_has_role('wholesaler')) {
     if ( WHOLESALER_NEEDS_PAYMENT ) {
       return true;      
@@ -19,12 +19,15 @@ function filter_wholesaler_needs_payment() {
       return false;
     }
   } else {
-    // Usuário comum
-    return true;
+    if ( CUSTOME_NEEDS_PAYMENT ) {
+      return true;      
+    } else {  
+      return false;
+    }
   }
 }
 
-add_filter('woocommerce_cart_needs_payment', 'filter_wholesaler_needs_payment', 10, 1);
+add_filter('woocommerce_cart_needs_payment', 'filter_user_needs_payment', 10, 1);
 
 
 /**
@@ -37,7 +40,7 @@ add_filter('woocommerce_cart_needs_payment', 'filter_wholesaler_needs_payment', 
  */
 function filter_wholesaler_needs_shipping( $needs_shipping ) {
 
-  if ( filter_wholesaler_needs_payment() ) {
+  if ( filter_user_needs_payment() ) {
     $needs_shipping = true;      
   } else {  
     $needs_shipping = false;

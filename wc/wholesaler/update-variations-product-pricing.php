@@ -17,7 +17,7 @@ if (is_admin())
 /**
  * role_change_price_variations_product
  *
- * Altera o preço do produto variável
+ * Altera o preço do produto variável interna
  *
  * @param mixed $price
  * @param mixed $variation
@@ -29,51 +29,12 @@ add_filter('woocommerce_product_variation_get_price', 'role_change_price_variati
 function role_change_price_variations_product($price, $variation)
 {
   if (user_has_role('wholesaler') && $variation->is_type('variation')) {
-    if (get_post_meta($variation->variation_id, '_wc_wholesaler_variation_price', true) !== '') {
+    if (is_on_sale_wholesaler($variation->variation_id)) {
+      $price = get_post_meta($variation->variation_id, '_wc_wholesaler_variation_sale_price', true);
+
+    } elseif (get_post_meta($variation->variation_id, '_wc_wholesaler_variation_price', true) !== '') {
       $price = get_post_meta($variation->variation_id, '_wc_wholesaler_variation_price', true);
     }
-  }
-
-  return $price;
-}
-
-/**
- * 
- * Atualiza o preço do produto simples na loja
- * 
- * @version 1.0
- */
-add_filter('woocommerce_get_price_html', 'change_product_price_display', 10, 2);
-
-function change_product_price_display($price, $product)
-{
-  // Remove o preço em promoção do usuário normal.
-  if (user_has_role('wholesaler') && $product->is_type('simple') && $product->get_price() > 0) {
-    if ($product->is_on_sale() && get_option('wcj_price_by_user_role_enabled') == 'no') {
-      $price = wc_price($product->get_price());
-    }
-  }
-
-  // Ajusta o preço para produtos variaveis
-  if (user_has_role('wholesaler') && $product->is_type('variation')) {
-    if ($product->get_price() > 0) {
-      $wholsaler_price = (float) get_post_meta($product->get_ID(), '_wc_wholesaler_variation_price', true);
-      $from = $wholsaler_price;
-      $to = (float) $product->get_price();
-
-      if ($product->is_on_sale() && get_option('wcj_price_by_user_role_enabled') == 'yes') {
-        $price = '<del>' . ((is_numeric($from)) ? wc_price($from) : $from) . '</del> <ins>' . ((is_numeric($to)) ? wc_price($to) : $to) . '</ins>';
-      } else {
-        $price = (is_numeric($wholsaler_price)) ? wc_price($wholsaler_price) : $wholsaler_price;
-      }
-    } else {
-      $price = '<span>Grátis</span>';
-    }
-  }
-
-  // Check stock
-  if ($product->managing_stock() && !$product->is_in_stock() && !is_product()) {
-    $price .= '<span class="d-block msg-stock">Fora de Estoque</span>';
   }
 
   return $price;
@@ -102,12 +63,27 @@ function custom_variable_price($price, $variation, $product)
   wc_delete_product_transients($variation->get_id());
 
   if (user_has_role('wholesaler') && $variation->is_type('variation')) {
+
     if (get_post_meta($variation->variation_id, '_wc_wholesaler_variation_price', true) !== '') {
       $price = get_post_meta($variation->variation_id, '_wc_wholesaler_variation_price', true);
     }
   }
 
   return $price;
+}
+
+
+/**
+ * Altera o valor do preço em promoção
+ */
+add_filter( 'woocommerce_variation_prices_sale_price', 'filter_sale_price_wholesaler', 10, 3 );
+function filter_sale_price_wholesaler( $variation_sale_price, $variation, $product ){
+	
+  if (is_on_sale_wholesaler($variation->variation_id) && user_has_role('wholesaler')) {
+    $variation_sale_price = get_post_meta($variation->variation_id, '_wc_wholesaler_variation_sale_price', true);
+  }
+
+	return $variation_sale_price;
 }
 
 
@@ -150,7 +126,10 @@ function remove_the_displayed_price_from_variable_products()
   if (disable_product_price()) {
     remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
     remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+    echo '<div style="height:40px;">&nbsp;</div>';
+
   } else {
+
     if (user_has_role('wholesaler')) {
       if ($product->is_type('variable')) {
         // Remove the displayed price from variable products
@@ -158,6 +137,7 @@ function remove_the_displayed_price_from_variable_products()
         remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
   
         echo get_wholesaler_variation_prices($product);
+        
       } else if ($product->is_type('simple')) {
         add_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
       }
@@ -190,6 +170,10 @@ function get_wholesaler_variation_prices($product)
   foreach ($variations_id as $key => $variation_id) {
     if (wc_get_product($variation_id)->is_on_sale() && get_option('wcj_price_by_user_role_enabled') == 'yes') {
       $price = (float) wc_get_product($variation_id)->get_price();
+
+    } elseif(is_on_sale_wholesaler($variation_id)) {
+      $price = (float) get_post_meta($variation_id, '_wc_wholesaler_variation_sale_price', true);
+      
     } else {
       $price = (float) get_post_meta($variation_id, '_wc_wholesaler_variation_price', true);
     }
@@ -205,6 +189,10 @@ function get_wholesaler_variation_prices($product)
   foreach ($variations_id as $key => $variation_id) {
     if (wc_get_product($variation_id)->is_on_sale() && get_option('wcj_price_by_user_role_enabled') == 'yes') {
       $price = (float) wc_get_product($variation_id)->get_price();
+
+    } elseif(is_on_sale_wholesaler($variation_id)) {
+      $price = (float) get_post_meta($variation_id, '_wc_wholesaler_variation_sale_price', true);
+      
     } else {
       $price = (float) get_post_meta($variation_id, '_wc_wholesaler_variation_price', true);
     }
@@ -215,9 +203,9 @@ function get_wholesaler_variation_prices($product)
   }
 
   if ($last_price_min !== $last_price_max) {
-    return '<p class="price mb-0">' . wc_price($last_price_min) . '</p>';
+    return '<span class="price wholesaler">' . wc_price($last_price_min) . ' - ' . wc_price($last_price_max) . '</span>';
   } else {
-    return '<p class="price mb-0">' . wc_price($last_price_min) . '</p>';
+    return '<span class="price wholesaler">' . wc_price($last_price_min) . '</span>';
   }
 }
 
@@ -237,7 +225,12 @@ function get_custom_variation_prices($product)
   // Pega o maior valor das variações
   foreach ($variations_id as $key => $variation_id) {
 
-    $price = (float) wc_get_product($variation_id)->get_price();
+    if ($product->is_on_sale()) {
+      $price = (float) wc_get_product($variation_id)->get_sale_price();
+
+    } else {
+      $price = (float) wc_get_product($variation_id)->get_price();
+    }
 
     if ($price >= $last_price_max) {
       $last_price_max = $price;
@@ -249,7 +242,13 @@ function get_custom_variation_prices($product)
   // Pega o menor valor das variações
   foreach ($variations_id as $key => $variation_id) {
 
-    $price = (float) wc_get_product($variation_id)->get_price();
+    if ($product->is_on_sale()) {
+      $price = (float) wc_get_product($variation_id)->get_sale_price();
+
+    } else {
+      $price = (float) wc_get_product($variation_id)->get_price();
+
+    }
 
     if ($price <= $last_price_min) {
       $last_price_min = $price;
@@ -257,8 +256,8 @@ function get_custom_variation_prices($product)
   }
 
   if ($last_price_min !== $last_price_max) {
-    return '<p class="price mb-0">' . wc_price($last_price_min) . '</p>';
+    return '<span class="price">' . wc_price($last_price_min) . ' - ' . wc_price($last_price_max) . '</span>';
   } else {
-    return '<p class="price mb-0">' . wc_price($last_price_min) . '</p>';
+    return '<span class="price">' . wc_price($last_price_min) . '</span>';
   }
 }

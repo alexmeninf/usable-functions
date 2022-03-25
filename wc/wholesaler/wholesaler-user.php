@@ -7,12 +7,21 @@ if (!defined('ABSPATH'))
 /**
  * 
  * Definições para os tipos de usuário.
+ * Exibido em functions.php
  * 
  */
-define('WHOLESALER_NEEDS_PAYMENT', true);
-define('DISABLE_PRODUCT_PRICE_TO_CUSTOMER', true);
 
-/**
+// Marque como true esta opção se o cliente ATACADISTA precisa de metodo de pagamento
+define('WHOLESALER_NEEDS_PAYMENT', false);
+
+// Marque como true esta opção se o cliente COMUM precisa de método de pagamento
+define('CUSTOME_NEEDS_PAYMENT', false);
+
+// Desativa a exibição de preços na loja para usuários que não são atacadista e bloquear compra
+define('DISABLE_PRODUCT_PRICE_TO_CUSTOMER', false);
+
+
+/** 
  * user_has_role 
  * Função para verificar se um usuário tem uma função específica
  * 
@@ -98,8 +107,8 @@ add_action('user_register', 'wc_update_fields_after_registration_user');
  * 
  */
 function check_field_persontype() {
-  // 1: pessoa física,
-  // 2: pessoa juridica
+  // Valor 1: Pessoa física,
+  // Valor 2: Pessoa juridica
   $value_default = '1';
 
   $billing_persontype = get_user_meta(get_current_user_id(), 'billing_persontype', true);
@@ -182,11 +191,11 @@ function disable_select_persontype($args, $key, $value)
   return $args;
 }
 
-
-
 /**
+ * 
  * Validar se os campos que não podem ser alterados, foram alterados.
  * Checkout
+ * 
  */
 add_action( 'woocommerce_after_checkout_validation', 'custom_checkout_validation', 9999, 2);
 function custom_checkout_validation( $fields, $errors ) {
@@ -195,22 +204,22 @@ function custom_checkout_validation( $fields, $errors ) {
   if ( $fields['billing_persontype'] !=  get_preserved_field('billing_persontype') ) {
     $errors->add( 'validation', 'Você não pode alterar <b>Tipo de pessoa</b>, entre em contato com a loja para solicitar a mudança.' );
   }
+
   if (get_preserved_field('tipo_cadastro') == 'pessoa_juridica') {
-    $cnpj = str_replace('.', '', $fields['billing_cnpj']);
-    $cnpj = str_replace('/', '', $cnpj);
-    $cnpj = str_replace('-', '', $cnpj);
-    $preserved_cnpj = str_replace('.', '', get_preserved_field('billing_cnpj'));
-    $preserved_cnpj = str_replace('/', '', $preserved_cnpj);
-    $preserved_cnpj = str_replace('-', '', $preserved_cnpj);
+    // Limpa a mascara caso houver
+    $cnpj           = preg_replace('/[\/\-.]/', '', $fields['billing_cnpj']);
+    $preserved_cnpj = preg_replace('/[\/\-.]/', '', get_preserved_field('billing_cnpj'));
 
     if (empty($cnpj)) {
       $errors->add( 'validation', 'O campo <b>CNPJ</b> não pode ser vazio.' );
+
     } elseif ( !empty($preserved_cnpj) && $cnpj !=  $preserved_cnpj ) {
       $errors->add( 'validation', 'Você não pode alterar o <b>CNPJ</b>, entre em contato com a loja para solicitar a mudança.' );
     }
 
     if ( empty($fields['billing_company']) ) {
       $errors->add( 'validation', 'O campo <b>Nome da empresa</b> não pode ser vazio.' );
+
     } elseif ( !empty(get_preserved_field('billing_company')) && $fields['billing_company'] != get_preserved_field('billing_company') ) {
       $errors->add( 'validation', 'Você não pode alterar <b>Nome da empresa</b>, entre em contato com a loja para solicitar a mudança.' );
     }
@@ -218,8 +227,10 @@ function custom_checkout_validation( $fields, $errors ) {
 } 
 
 /**
+ * 
  * Validar se os campos que não podem ser alterados, foram alterados.
  * Edit Address / Billing
+ * 
  */
 add_action( 'woocommerce_after_save_address_validation', 'custom_shipping_validation' );
 function custom_shipping_validation() {
@@ -228,22 +239,22 @@ function custom_shipping_validation() {
   if ( $_POST['billing_persontype'] !=  get_preserved_field('billing_persontype') ) {
     wc_add_notice( 'Você não pode alterar <b>Tipo de pessoa</b>, entre em contato com a loja para solicitar a mudança.', 'error' );
   }
+
   if (get_preserved_field('tipo_cadastro') == 'pessoa_juridica') {
-    $cnpj = str_replace('.', '', $_POST['billing_cnpj']);
-    $cnpj = str_replace('/', '', $cnpj);
-    $cnpj = str_replace('-', '', $cnpj);
-    $preserved_cnpj = str_replace('.', '', get_preserved_field('billing_cnpj'));
-    $preserved_cnpj = str_replace('/', '', $preserved_cnpj);
-    $preserved_cnpj = str_replace('-', '', $preserved_cnpj);
+
+    $cnpj           = preg_replace('/[\/\-.]/', '', $_POST['billing_cnpj']);
+    $preserved_cnpj = preg_replace('/[\/\-.]/', '', get_preserved_field('billing_cnpj'));
 
     if (empty($cnpj)) {
       wc_add_notice( 'O campo <b>CNPJ</b> não pode ser vazio.', 'error' );
+
     } elseif ( !empty($preserved_cnpj) && $cnpj !=  $preserved_cnpj ) {
       wc_add_notice( 'Você não pode alterar o <b>CNPJ</b>, entre em contato com a loja para solicitar a mudança.', 'error' );
     }
 
     if ( empty($_POST['billing_company']) ) {
       wc_add_notice( 'O campo <b>Nome da empresa</b> não pode ser vazio.', 'error' );
+
     } elseif ( !empty(get_preserved_field('billing_company')) && $_POST['billing_company'] != get_preserved_field('billing_company') ) {
       wc_add_notice( 'Você não pode alterar <b>Nome da empresa</b>, entre em contato com a loja para solicitar a mudança.', 'error' );
     }
@@ -268,7 +279,9 @@ function bbloomer_change_cart_table_price_display($price, $values, $cart_item_ke
 }
 
 /**
+ * 
  * Ações depois que Criar ou atualizar o produto pelo REST API
+ * 
  */
 add_action('rest_insert_product', 'rest_insert_product_meta', 10, 3);
 function rest_insert_product_meta(\WP_Post $post, $request, $creating)
@@ -287,20 +300,20 @@ function rest_insert_product_meta(\WP_Post $post, $request, $creating)
  * Cria o campo do preço atacadista
  * 
  */
-add_action('init', 'register_product_meta');
-function register_product_meta()
-{
-  register_post_meta(
-    'product',
-    '_wc_wholesaler_regular_price',
-    array(
-      'single'       => true,
-      'type'         => 'string',
-      'default'      => '0.00',
-      'show_in_rest' => true,
-    )
-  );
-};
+// add_action('init', 'register_product_meta');
+// function register_product_meta()
+// {
+//   register_post_meta(
+//     'product',
+//     '_wc_wholesaler_regular_price',
+//     array(
+//       'single'       => true,
+//       'type'         => 'string',
+//       'default'      => '',
+//       'show_in_rest' => true,
+//     )
+//   );
+// };
 
 
 /**

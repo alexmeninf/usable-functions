@@ -35,7 +35,11 @@ function role_change_price_simple_product($price, $product)
   if (!is_user_logged_in()) return $price;
 
   if (user_has_role('wholesaler') && $product->is_type('simple')) {
-    if (get_post_meta($product->get_ID(), '_wc_wholesaler_regular_price', true) !== '') {
+
+    if ( is_on_sale_wholesaler($product->get_ID()) ) {
+      $price = get_post_meta($product->get_ID(), '_wc_wholesaler_sale_price', true);
+      
+    } elseif (get_post_meta($product->get_ID(), '_wc_wholesaler_regular_price', true) !== '') {
       $price = get_post_meta($product->get_ID(), '_wc_wholesaler_regular_price', true);
     }
   }
