@@ -1,76 +1,102 @@
+jQuery(function ($) {
+
   // remove item in cart
-  $(document).on('click', '.remove-item', function (e) {
-    e.preventDefault();
+  $(document).on('click', '.remove-from-cart', function (e) {
+  	e.preventDefault();
 
-    let ajaxurl = $('meta[name=urlajax]').attr('content');
-    let themeroot = $('meta[name=themeroot]').attr('content');
-    let parentItem = $(this).parent().parent();
-    let parentItem2 = $(this).parent().parent().parent();
+  	let ajaxurl    = $('meta[name=urlajax]').attr('content');
+  		themeroot    = $('meta[name=themeroot]').attr('content'),
+  		cartItems    = $(this).parent().parent(),
+			cartShopping = '#miniCart .cart-fragments',
+			totalItems   = '.mini-cart-count .cart_contents_count',
+			symbol       = $(cartShopping).data('currency-symbol');
+  		item         = $(this).parent();
 
-    $.ajax({
-      type: "POST",
-      url: wc_add_to_cart_params.ajax_url,
-      data: {
-        action: 'remove_item_from_cart',
-        'cart_item_key': String($(this).data('cart-item-key'))
-      },
-      success: function (res) {
-        if (res) {
-          let countItems = parseInt($('.cart_contents_count.calc').html()); //qnt total de itens no carrinho
-          let qnt = parseInt(parentItem.find('.qty').html()); // qnt de itens removidos do produto atual
-          let totalItems = countItems - qnt;
+  	$(item).addClass('loading-removing');
+		$(cartShopping + ' li > .remove-from-cart').css({pointerEvents: 'none', opacity: '0.4'});
+		
+  	$.ajax({
+  		type: "POST",
+  		url: wc_add_to_cart_params.ajax_url,
+  		data: {
+  			action: 'remove_item_from_cart',
+  			'cart_item_key': String(item.data('cart-item-key'))
+  		},
+  		success: function (res) {
+  			if (res) {
+  				// Subtrai total de items
+          let countItems = parseInt($(totalItems).html()), //qnt total
+  					qnt          = item.find('.qnt').html(); // qnt item removed
 
-          $('.cart_contents_count').html(totalItems); // atualizar no header o total de items no carrinho
+  				$(totalItems).html(countItems - qnt);
 
-          // remove item selecionado
-          $('.cart_list li[data-id=' + parentItem.attr('data-id') + ']').remove();
+          // Subtrai valor total
+          let currentTotal = parseFloat($(cartShopping).attr('data-totals-cart')),
+            priceRemoved   = parseFloat(item.find('.mini-cart__product__quantity').attr('data-total-price')),
+            newTotalPrice  = currentTotal - priceRemoved;
+          $(cartShopping).attr('data-totals-cart', parseFloat(newTotalPrice).toFixed(2));
 
-          // Update cart
-          var data = {
-            'action': 'mode_theme_update_mini_cart'
-          };
-          $.post(
-            woocommerce_params.ajax_url, // The AJAX URL
-            data, // Send our PHP function
-            function (response) {
-              $('.the_cart').html(response); // Repopulate the specific element with the new content
-            }
-          );
+          // Formartted price
+          newTotalPrice = newTotalPrice.formatMoney(2, symbol + " ", ".", ",");
+          $('.mini-cart__total span.ammount').html(newTotalPrice);
 
-          // Atualiza preço total de items no carrinho
-          let totalPrice = 0;
-          $('.cart-fragments li .price').each(function () {
-            totalPrice = totalPrice + parseFloat($(this).attr("data-total-price"));
-          });
-          $('.total-minicart .amount').html(totalPrice.formatMoney(2, "R$ ", ".", ","));
-          $('.cart-fragments').attr('data-totals-cart', totalPrice);
+					
+          // remove item
+  				$(cartShopping + ' .mini-cart__product[data-cart-item-key=' + item.data('cart-item-key') + ']').remove();
 
-          // if empty, show message
-          if (parentItem2.has('li').length == 0) {
-            $('.cart_list').html('<li class="empty-cart-txt">Seu Carrinho está vazio!</li>');
-            $('.buttons').html(`<a href="${ajaxurl}/loja" class="btn pull-left btn-minicart">Fazer compras</a>`);
-          }
+  				// if empty, show message
+  				if (cartItems.has('.mini-cart__product').length == 0) {
 
-          Swal.fire({
-            type: 'success',
-            title: 'Item removido do carrinho'
-          });
+  					$(cartShopping + ' .mini-cart__list').html('<li class="empty-cart-txt"><span class="d-block my-4">Seu carrinho está vazio!</span></li>');
 
-          // reload cart page to update data
-          if (document.location.href == ajaxurl + '/carrinho/' || document.location.href == ajaxurl + '/finalizar-compra/') {
-            document.location.reload(true);
-          }
-        }
-      },
-      error: function (res) {
-        if (res) {
-          Swal.fire({
-            title: 'Ops!',
-            text: 'Algo deu errado, o item não removido. Tente novamente mais tarde.',
-            type: 'error',
-            confirmButtonText: 'Fechar'
-          });
-        }
-      }
-    });
+  					$('.mini-cart__total span.ammount').html(symbol + ' 00,00');
+
+						$('.mini-cart__buttons').html(`<a href="${ajaxurl}/loja" class="btn-theme btn-medium">Fazer compras</a>`);
+  				}
+
+  				Swal.fire({
+  					icon: 'success',
+  					title: 'Item removido do carrinho'
+  				});
+
+					$(item).removeClass('loading-removing');
+					$(cartShopping + ' li > .remove-from-cart').css({pointerEvents: '', opacity: ''});
+
+  				// reload cart page to update data
+  				if (document.location.href == ajaxurl + '/carrinho/' || document.location.href == ajaxurl + '/finalizar-compra/') {
+  					location.reload();
+  				}
+  			}
+  		},
+  		error: function (res) {
+  			if (res) {
+  				$(item).removeClass('loading-removing');
+					$(cartShopping + ' li > .remove-from-cart').css({pointerEvents: '', opacity: ''});
+
+  				Swal.fire({
+  					title: 'Algo deu errado',
+  					titleText: 'O item não foi removido por algum motivo. Tente novamente mais tarde.',
+  					icon: 'error',
+  					confirmButtonText: 'Fechar'
+  				});
+  			}
+  		}
+
+  	});
   });
+});
+  
+Number.prototype.formatMoney = function (places, symbol, thousand, decimal) {
+  places = !isNaN(places = Math.abs(places)) ? places : 2;
+  symbol = symbol !== undefined ? symbol : "R$";
+  thousand = thousand || ",";
+  decimal = decimal || ".";
+  let initialDiv = '<span class = "woocommerce-Price-amount amount" >';
+  let finalDiv = '</span>';
+
+  var number = this,
+    negative = number < 0 ? "-" : "",
+    i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+    j = (j = i.length) > 3 ? j % 3 : 0;
+  return initialDiv + symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "") + finalDiv;
+};
