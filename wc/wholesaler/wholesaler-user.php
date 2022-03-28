@@ -48,6 +48,11 @@ function user_has_role($role = '', $user_id = null)
  * 
  * */
 function wc_update_fields_after_registration_user( $user_id ) {
+
+  // Atualizar E-mail
+  if (isset($_POST['email']) && !empty($_POST['email']) ) :
+    update_user_meta( $user_id, 'billing_email', $_POST['email'] );
+  endif;
   
   // Atualizar nome
   if (isset($_POST['first_name']) && !empty($_POST['first_name']) ) :
