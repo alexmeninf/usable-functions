@@ -1,8 +1,8 @@
 jQuery(function ($) {
+  var drawerClass = '.drawer-mobile', drawerId;
 
   drawerMobile = () => {
-    let drawer = '.drawer-mobile',
-      drawerButton = '.drawerButton',
+    let drawerButton = '.drawerButton',
       drawerClose = '.close-menu',
       drawerClosed = 'drawerClosed',
       drawerOpen = 'drawerOpen',
@@ -12,13 +12,13 @@ jQuery(function ($) {
 
     function openMenuSwiped() {
       $('body').css('overflow', 'hidden');
-      $(drawer).removeClass(drawerClosed);
-      $(drawer).addClass(drawerOpen);
+      $(drawerClass).removeClass(drawerClosed);
+      $(drawerClass).addClass(drawerOpen);
       $(listMenu).animate({
         left: '0'
       });
 
-      $(drawerButton).css({transform: 'translateX(7px)', opacity: 0, transition: '.3s ease-in'});
+      $(drawerButton + '[data-drawer-id=' + drawerId + ']').css({transform: 'translateX(7px)', opacity: 0, transition: '.3s ease-in'});
 
       setTimeout(() => {
         $(drawerClose).addClass('open');
@@ -32,17 +32,20 @@ jQuery(function ($) {
         left: '-100%'
       });
       
-      $(drawerButton).css({transform: 'translateX(0)', opacity: 1});
+      $(drawerButton + '[data-drawer-id=' + drawerId + ']').css({transform: 'translateX(0)', opacity: 1});
 
       setTimeout(() => {
-        $(drawer).addClass(drawerClosed);
-        $(drawer).removeClass(drawerOpen);
+        $(drawerClass).addClass(drawerClosed);
+        $(drawerClass).removeClass(drawerOpen);
       }, 600);
     }
 
     // Open
     $(drawerButton).click(function (e) {
       e.preventDefault();
+      drawerId = $(this).attr('data-drawer-id');
+      drawerClass = '.drawer-mobile';
+      drawerClass = '#' + drawerId + drawerClass;      
       openMenuSwiped();
     });
 
@@ -67,11 +70,11 @@ jQuery(function ($) {
     });
 
     // Search form
-    $(drawer + ' .search-field').blur(function() {
-      $(drawer + ' .searchfield_cancel').removeClass('active-btn');
+    $(drawerClass + ' .search-field').blur(function() {
+      $(drawerClass + ' .searchfield_cancel').removeClass('active-btn');
     })
     .focus(function() {
-      $(drawer + ' .searchfield_cancel').addClass('active-btn');
+      $(drawerClass + ' .searchfield_cancel').addClass('active-btn');
     });
   }
 
