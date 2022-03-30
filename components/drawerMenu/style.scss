@@ -10,11 +10,8 @@
   display: none;
   transition: all 0.3s ease-in;
   user-select: none;
-
-  @include media(500px) {
-    background: #00000094;
-  }
-
+  background: rgba(0, 0, 0, 0.58);
+  
   &.drawerOpen {
     display: inline;
     opacity: 1;
@@ -61,7 +58,7 @@
     box-shadow: 4px 0 8px rgb(0 0 0 / 17%);
     height: 100%;
     position: relative;
-    background-color: rgb(255 255 255 / 75%);
+    background-color: rgba(255, 255, 255, 0.815);
     left: -100%;
     width: 100%;
     max-width: 500px;
