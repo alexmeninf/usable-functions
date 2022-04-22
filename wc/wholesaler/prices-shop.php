@@ -123,12 +123,29 @@ function is_on_sale_wholesaler($product_id, $context = 'view') {
   $product = wc_get_product( $product_id );
 
   if ( $product->is_type('simple') ) {
-    $wholsaler_price      = get_post_meta($product_id, '_wc_wholesaler_regular_price', true);
-    $wholsaler_sale_price = get_post_meta($product_id, '_wc_wholesaler_sale_price', true);
-    
-  } else {
-    $wholsaler_price      = get_post_meta($product_id, '_wc_wholesaler_variation_price', true);
-    $wholsaler_sale_price = get_post_meta($product_id, '_wc_wholesaler_variation_sale_price', true);
+    $wholsaler_price      = str_replace(',', '.', get_post_meta($product_id, '_wc_wholesaler_regular_price', true));
+    $wholsaler_sale_price = str_replace(',', '.', get_post_meta($product_id, '_wc_wholesaler_sale_price', true));
+   
+  } elseif ($product->is_type('variation')) {
+    $wholsaler_price      = str_replace(',', '.', get_post_meta($product_id, '_wc_wholesaler_variation_price', true));
+    $wholsaler_sale_price = str_replace(',', '.', get_post_meta($product_id, '_wc_wholesaler_variation_sale_price', true));
+
+  } elseif ($product->is_type('variable')) {
+    $variations = $product->get_available_variations();
+    $variations_id = wp_list_pluck($variations, 'variation_id');
+
+    foreach ($variations_id as $key => $variation_id) {
+      $product = wc_get_product( $variation_id );
+       
+      if (wc_get_product($variation_id)->is_on_sale() && get_option('wcj_price_by_user_role_enabled') == 'yes') {
+        $wholsaler_price      = str_replace(',', '.', get_post_meta($variation_id, '_wc_wholesaler_variation_price', true));
+        $wholsaler_sale_price = str_replace(',', '.', get_post_meta($variation_id, '_wc_wholesaler_variation_sale_price', true));
+  
+      } elseif(is_on_sale_wholesaler($variation_id)) {
+        $wholsaler_price      = str_replace(',', '.', get_post_meta($variation_id, '_wc_wholesaler_variation_price', true));
+        $wholsaler_sale_price = str_replace(',', '.', get_post_meta($variation_id, '_wc_wholesaler_variation_sale_price', true));
+      }  
+    }
   }
 
   if ('' !== (string) $wholsaler_sale_price && (float) $wholsaler_price > (float) $wholsaler_sale_price ) {
@@ -147,7 +164,6 @@ function is_on_sale_wholesaler($product_id, $context = 'view') {
 
   return 'view' === $context ? apply_filters( 'woocommerce_product_is_on_sale', $on_sale, $product ) : $on_sale;
 }
-
 
 /**
  * 
