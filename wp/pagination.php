@@ -66,7 +66,7 @@ function get_pagination($current_page, $pages_count, $maxLinks = 2, $param_name 
   $symbol_concat = $args != '?' ? '&' : '';
 
   if (is_search()) {
-    $args .= 's=' . get_search_query();
+    $args .= ! strstr($args, 's=') ? 's=' . get_search_query() : '';
     $url = get_bloginfo('url');
 
   } elseif (is_category()) {
