@@ -43,7 +43,7 @@ jQuery(function ($) {
         let ahref = parent_a.attr('href'),
           aTitle = parent_a.text();
 
-        parent_a.append('<i class="fas fa-sort-down ml-2"></i>');
+        parent_a.append('<i class="fal fa-sort-down ml-2"></i>');
         // Adiciona uma nova li com o link do item pai
         let pnext = parent_a.next(submenu);
         $('<li><a href="' + ahref + '"><span>Acessar ' + aTitle + '</span></a></li>').prependTo(pnext);
