@@ -1,0 +1,127 @@
+[
+    {
+        "key": "group_631645201a095",
+        "title": "Detalhes do banner",
+        "fields": [
+            {
+                "key": "field_63164531d444d",
+                "label": "Banner desktop",
+                "name": "banner_desktop",
+                "type": "image",
+                "instructions": "Envie uma imagem com resolução de 1920x500 pixels. <br><br>\r\n\r\nRecomendamos as imagens em formato <b>.jpg<\/b> e otimizadas.\r\nDica: Utilize (<a href=\"https:\/\/tinypng.com\/\" target=\"_blank\" rel=\"noreferrer\">tinypng.com<\/a>) para otimizar as imagens.",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 1920,
+                "min_height": 500,
+                "min_size": "",
+                "max_width": 1920,
+                "max_height": 500,
+                "max_size": 1,
+                "mime_types": "jpg, jpeg, png"
+            },
+            {
+                "key": "field_63164679d444e",
+                "label": "Banner Tablet",
+                "name": "banner_tablet",
+                "type": "image",
+                "instructions": "Envie uma imagem com resolução de 992x500 pixels.",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 992,
+                "min_height": 500,
+                "min_size": "",
+                "max_width": 992,
+                "max_height": 500,
+                "max_size": 1,
+                "mime_types": "jpg, jpeg, png"
+            },
+            {
+                "key": "field_631647e785e86",
+                "label": "Banner mobile",
+                "name": "banner_mobile",
+                "type": "image",
+                "instructions": "Envie uma imagem com resolução de 768x800 pixels.",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 768,
+                "min_height": 800,
+                "min_size": "",
+                "max_width": 768,
+                "max_height": 800,
+                "max_size": 1,
+                "mime_types": "jpg, jpeg, png"
+            },
+            {
+                "key": "field_6316492c2eed0",
+                "label": "Link do banner",
+                "name": "link_banner",
+                "type": "link",
+                "instructions": "Campo opcional.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "banner"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": [
+            "permalink",
+            "the_content",
+            "excerpt",
+            "discussion",
+            "comments",
+            "revisions",
+            "slug",
+            "author",
+            "format",
+            "page_attributes",
+            "featured_image",
+            "categories",
+            "tags",
+            "send-trackbacks"
+        ],
+        "active": true,
+        "description": ""
+    }
+]
