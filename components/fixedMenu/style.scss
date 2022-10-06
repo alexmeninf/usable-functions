@@ -1,3 +1,15 @@
+:root {
+  // Navigation
+  --color-nav-fill: 255, 255, 255;
+  --color-nav-fill-hover: 245, 245, 245;
+  --color-nav-fill-active: 205, 204, 215;
+  --nav-link-color: #171718;
+  --nav-icon-color: var(--nav-link-color);
+  --bg-search-input: #e9e9ebab;
+  --color-search-input: 17, 17, 19;
+}
+
+
 .sticky-menu-top {
   background-color: rgba(var(--color-nav-fill), 1);
   box-shadow: 0px 4px 3px -3px rgba(0, 0, 0, 0.12);
