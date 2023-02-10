@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="modal modal-asb" id="modal-1">
+    <div class="modal-bg close-modal"></div>
+    <div class="modal-content" tabindex="-1">
+      <span class="close-button close-modal">×</span>
+      <div class="modal-header">
+        <h2>Modal title</h2>
+      </div>
+      <div class="modal-body">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sequi, adipisci laboriosam ea odit placeat itaque ipsa possimus sapiente dolor et sit atque fugit expedita quasi saepe suscipit eos natus.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <button data-modal="modal-1">Click here to trigger the moda</button>
+
+  <script>
+    const modals = document.querySelectorAll('[data-modal]');
+
+    modals.forEach(function (trigger) {
+      trigger.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        const modal = document.getElementById(trigger.dataset.modal);
+        modal.classList.add('show-modal');
+        document.body.classList.add("overflow-hidden");
+
+        const exits = modal.querySelectorAll('.close-modal');
+        
+        exits.forEach(function (exit) {
+          exit.addEventListener('click', function (event) {
+            event.preventDefault();
+            modal.classList.remove('show-modal');
+            document.body.classList.remove("overflow-hidden");
+          });
+        });
+      });
+    });
+  </script>
+
+  <style>
+    .overflow-hidden {
+      overflow: hidden !important;
+    }
+    .modal {
+      z-index: 1000;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.1);
+      transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+    }
+
+    .modal-bg {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      height: 100%;
+    }
+
+    .modal-header h2 {
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      padding-right: 30px;
+      margin-bottom: 35px;
+      color: #3700B3;
+    }
+
+    .modal-body {
+      color: #2b2931;
+      overflow-y: auto;
+      max-height: calc(95vh - 30px);
+      font-size: 18px;
+    }
+
+    .modal-content {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffffffde;
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+      backdrop-filter: blur(16px) saturate(150%);
+      padding: 2rem 1.5rem;
+      max-width: 45rem;
+      border-radius: 0.5rem;
+      width: calc(100% - 30px);
+      box-shadow: 3px 3px 10px rgb(0 0 0 / 13%);
+    }
+
+    @media (min-width: 768px) {
+      .modal-content {
+        padding: 2rem 4.5rem;
+      }
+
+      .modal-header h2 {
+        font-size: 30px;
+      }
+    }
+
+    .close-button {
+      width: 1.8rem;
+      line-height: 1.8rem;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 25rem;
+      background-color: #eaeaea;
+      top: 16px;
+      right: 16px;
+      position: absolute;
+      font-size: 1.2rem;
+    }
+
+    .close-button:hover {
+      background-color: rgb(212, 212, 212);
+    }
+
+    .show-modal {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1.0);
+      transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+    }
+  </style>
+</body>
+
+</html>
