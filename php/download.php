@@ -1,13 +1,15 @@
 <?php
 session_start();
 
-$file         = isset($_GET['file']) && trim($_GET['file']) !== '' ? $_GET['file'] : null;
-$file_dir     = $file;
-$files_exists = true;
+$file                       = isset($_GET['file']) && trim($_GET['file']) !== '' ? $_GET['file'] : null;
+$file_dir                   = $file;
+$files_exists               = true;
+$delete_file_after_download = false;
 
 if (!isset(parse_url($file)['host'])) {
-  $file_dir     = __DIR__ . '/' . $file;
-  $files_exists = file_exists($file_dir);
+  $file_dir                   = __DIR__ . '/' . $file;
+  $files_exists               = file_exists($file_dir);
+  $delete_file_after_download = (bool)isset($_GET['delete_file_after_download']) && trim($_GET['delete_file_after_download']) !== '' ? $_GET['delete_file_after_download'] : false;
 }
 
 if (!$file || !$files_exists) {
@@ -76,5 +78,11 @@ header('Expires: 0');
 header('Cache-Control: must-revalidate');
 header('Pragma: public');
 
+// Lê e envia o arquivo para o cliente
 readfile($file_dir);
+
+// Deleta o arquivo após o download
+if ($delete_file_after_download)
+  unlink($file_dir);
+
 exit;
